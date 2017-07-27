@@ -15,9 +15,13 @@
 	Correl_peak_sig.C, Correl_peak_bkg.C, Correl_side_sig.C, Correl_side_bkg.C
 
 v1
-pt: 0~30
-mult: 0~300
+pt: 0, 30
+mult: 0, 300
 
 v2
-pt: 0~3, 3~5, 5~7, 7~9, 9~11, 11~15, 15~40
-mult: 0~300
+pt: 0, 3, 5, 7, 9, 11, 15, 30
+mult: 0, 300
+
+v3
+pt: 0, 30
+mult: 0, 100, 150, 300
