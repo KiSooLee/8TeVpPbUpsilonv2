@@ -10,6 +10,7 @@
 #include <TString.h>
 #include <iostream>
 #include <fstream>
+#include <TSystem.h>
 
 #include <RooRealVar.h>
 #include <RooDataSet.h>
