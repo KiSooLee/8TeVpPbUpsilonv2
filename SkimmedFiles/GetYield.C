@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <TParameter.h>
+#include <TSystem.h>
 #include <RooRealVar.h>
 #include <RooArgSet.h>
 #include <RooDataSet.h>
@@ -35,8 +36,22 @@ using namespace RooFit;
 
 void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Double_t ptMin = 0, const Double_t ptMax = 30, const Double_t rapMin = -2.4, const Double_t rapMax = 2.4, TString version = "v1")
 {
+
+//Make directory{{{
+	TString mainDIR = gSystem->ExpandPathName(gSystem->pwd());
+	TString massDIR = mainDIR + "MassDist";
+	void * dirpM = gSystem->OpenDirectory(massDIR.Data());
+	if(dirpM) gSystem->FreeDirectory(dirpM);
+	else gSystem->mkdir(massDIR.Data(), kTRUE);
+
+	TString yieldDIR = mainDIR + "Yield";
+	void * dirpY = gSystem->OpenDirectory(yieldDIR.Data());
+	if(dirpY) gSystem->FreeDirectory(dirpY);
+	else gSystem->mkdir(yieldDIR.Data(), kTRUE);
+//}}}
+
 	const Int_t Nmassbins = 120;
-	TFile* fout = new TFile(Form("Yield_Mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()), "RECREATE");
+	TFile* fout = new TFile(Form("Yield/Yield_Mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()), "RECREATE");
 
 //Define parameters{{{
 	Double_t sig11, sig12, sig21, sig22, sig31, sig32;
@@ -262,7 +277,7 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 //	if(ftxt != NULL) fprintf(ftxt, "%.2f %.2f %.2f %.2f %.2f \n", meanout, sigma1out, sigma2out, fracout, sigmaout);
 //}}}
 
-	c1->SaveAs(Form("MassDistribution_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()));
+	c1->SaveAs(Form("MassDist/MassDistribution_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()));
 	fout->cd();
 	massPlot->Write();
 	hYield->Write();
