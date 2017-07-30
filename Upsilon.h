@@ -6,13 +6,35 @@
 //}}}
 
 //Basic info{{{
-//Double_t rapBinsArr[] = {0, 1.2, 2.4};
-Double_t rapBinsArr[] = {0, 2.4};
-//Double_t ptBinsArr[] = {0, 6, 30};
-Double_t ptBinsArr[] = {0, 30};
-//Double_t multBinsArr[] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 100, 105, 110, 120, 130, 140, 150, 160, 300};
-//Double_t multBinsArr[] = {0, 10, 20, 30, 100, 300};
+/*
+//v1{{{
 Double_t multBinsArr[] = {0, 300};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 30};
+//}}}
+*/
+
+/*
+//v2{{{
+Double_t multBinsArr[] = {0, 300};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0.0, 3.0, 5.0, 7.0, 9.0, 11.0, 15.0, 30.0};
+//}}}
+*/
+/*
+//v3{{{
+Double_t multBinsArr[] = {0, 100, 150, 300};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 30};
+//}}}
+*/
+/*
+//v4{{{
+Double_t multBinsArr[] = {0, 300};
+Double_t rapBinsArr[] = {-2.4, -1.2, 0.0, 1.2, 2.4};
+Double_t ptBinsArr[] = {0, 30};
+//}}}
+*/
 
 const Int_t rap_narr = sizeof(rapBinsArr)/sizeof(double);
 const Int_t pt_narr = sizeof(ptBinsArr)/sizeof(double);

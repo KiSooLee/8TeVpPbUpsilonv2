@@ -17,14 +17,22 @@
 	do_peak_sig.sh and do_peak_bkg.sh are used to run Correl_peak_sig.C and Correl_peak_bkg.C
 	The correlation results are stored as dphi-deta distribution in the SortFiles/CorrDist/ directory.
 
-v1
-pt: 0, 30
+v1: integrated
 mult: 0, 300
+pt: 0, 30
+y: -2.4, 2.4
 
-v2
+v2: pt distribution
+mult: 0, 300
 pt: 0, 3, 5, 7, 9, 11, 15, 30
-mult: 0, 300
+y: -2.4, 2.4
 
-v3
-pt: 0, 30
+v3: multiplicity distribution
 mult: 0, 100, 150, 300
+pt: 0, 30
+y: -2.4, 2.4
+
+v4: rapidity distribution
+mult: 0, 300
+pt: 0, 30
+y: -2.4, -1.2, 0.0, 1.2, 2.4
