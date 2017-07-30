@@ -29,7 +29,7 @@ void dataskim(bool isMC = false)
 {
 //Make directory{{{
 	TString mainDIR = gSystem->ExpandPathName(gSystem->pwd());
-	TString saveDIR = mainDIR + "SkimmedFiles";
+	TString saveDIR = mainDIR + "/SkimmedFiles";
 	void * dirp = gSystem->OpenDirectory(saveDIR.Data());
 	if(dirp) gSystem->FreeDirectory(dirp);
 	else gSystem->mkdir(saveDIR.Data(), kTRUE);
@@ -148,7 +148,7 @@ void dataskim(bool isMC = false)
 	RooRealVar* Rooy = new RooRealVar("y", "rapidity of dimuon", -3., 3, "");
 	RooRealVar* Roomult = new RooRealVar("mult", "track multiplicity of event", 0, 300, "");
 	RooRealVar* Rooweight = new RooRealVar("weight", "p_{T} weight", 0, 10000, "");
-	RooArgSet* argset = new RooArgSet(*Roomass, *Roopt, *Roomult, *Rooweight);
+	RooArgSet* argset = new RooArgSet(*Roomass, *Roopt, *Rooy, *Roomult, *Rooweight);
 	RooDataSet* dataset = new RooDataSet("dataset", "dataset", *argset);
 //}}}
 

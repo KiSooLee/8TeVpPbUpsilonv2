@@ -39,12 +39,12 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 
 //Make directory{{{
 	TString mainDIR = gSystem->ExpandPathName(gSystem->pwd());
-	TString massDIR = mainDIR + "MassDist";
+	TString massDIR = mainDIR + "/MassDist";
 	void * dirpM = gSystem->OpenDirectory(massDIR.Data());
 	if(dirpM) gSystem->FreeDirectory(dirpM);
 	else gSystem->mkdir(massDIR.Data(), kTRUE);
 
-	TString yieldDIR = mainDIR + "Yield";
+	TString yieldDIR = mainDIR + "/Yield";
 	void * dirpY = gSystem->OpenDirectory(yieldDIR.Data());
 	if(dirpY) gSystem->FreeDirectory(dirpY);
 	else gSystem->mkdir(yieldDIR.Data(), kTRUE);
