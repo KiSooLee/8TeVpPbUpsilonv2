@@ -61,7 +61,7 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 
 //Get parameter{{{
 	ifstream in;
-	in.open(Form("Parameters_Mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()));
+	in.open(Form("Parameter/Parameters_Mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()));
 	if(in.is_open())
 	{
 		while(!in.eof())
