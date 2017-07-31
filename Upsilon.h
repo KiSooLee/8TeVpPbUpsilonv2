@@ -14,13 +14,12 @@ Double_t ptBinsArr[] = {0, 30};
 //}}}
 */
 
-/*
 //v2{{{
 Double_t multBinsArr[] = {0, 300};
 Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0.0, 3.0, 5.0, 7.0, 9.0, 11.0, 15.0, 30.0};
 //}}}
-*/
+
 /*
 //v3{{{
 Double_t multBinsArr[] = {0, 100, 150, 300};
@@ -39,6 +38,9 @@ Double_t ptBinsArr[] = {0, 30};
 const Int_t rap_narr = sizeof(rapBinsArr)/sizeof(double);
 const Int_t pt_narr = sizeof(ptBinsArr)/sizeof(double);
 const Int_t mult_narr = sizeof(multBinsArr)/sizeof(double);
+
+const Int_t Numbin[10] = {0, 5000000, 10000000, 15000000, 20000000,
+								25000000, 30000000, 35000000, 40000000, 45000000};
 
 const Double_t U1S_mass = 9.460;
 const Double_t U2S_mass = 10.023;
@@ -63,7 +65,7 @@ class DiMuon
 	Double_t trk_eta, trk_pt, trk_phi;
 	Double_t weight;
 	Double_t mult;
-	Int_t Npeak, Nside, Nass;
+	Int_t Ntrg, Nside, Nass;
 	TClonesArray* Vec_trg_peak;
 	TClonesArray* Vec_trg_side;
 	TClonesArray* Vec_ass;
@@ -76,7 +78,7 @@ class DiMuon
 		mumi_eta = -99; mumi_pt = -99; mumi_phi = -99;
 		trk_eta = -99; trk_pt = -99; trk_phi = -99;
 		weight = -99; mult = -99;
-		Npeak = -99; Nside = -99; Nass = -99;
+		Ntrg = -99; Nside = -99; Nass = -99;
 		Vec_trg_peak->Clear();
 		Vec_trg_side->Clear();
 		Vec_ass->Clear();
@@ -104,7 +106,7 @@ class DiMuon
 		tout->Branch("trk_phi", &trk_phi);
 		tout->Branch("weight", &weight);
 		tout->Branch("mult", &mult);
-		tout->Branch("Npeak", &Npeak);
+		tout->Branch("Ntrg", &Ntrg);
 		tout->Branch("Nside", &Nside);
 		tout->Branch("Nass", &Nass);
 		Vec_trg_peak = new TClonesArray("TLorentzVector", 250);
