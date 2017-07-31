@@ -9,13 +9,13 @@
 
 5. With the Yield pt, y, multiplicity distribution is drawn by SkimmedFiles/Yield/YieldDist.C. SkimmedFiles/Yield/do_YieldDist.sh is used to run YieldDist.C 
 
-6. In each pt and multiplicity bin, dimuon candidates are correlated with track. To see the flow in each mass value dimuon candidates are separated in fine mass binnning. Sort.C store dimuons in the certain mass binning and tracks in the same event. do_Sort.sh is used to run Sort.C
+6. Because of the large events correlation process takes too long time. In order to reduce running time root file is collected with Sort0.C ~ Sort9.C. 5000000 events are collected in a root file in each pt and multiplicity, rapidity bin. do_Sort0.sh ~do_Sort9.sh is used to run Sort?.C
 
-7. Sorted results are stored in the SortFiles/ directory. Due to the large number of events all the events are separeted to the 10 root files.
+7. The sorted files are stored in SortFiles/ directory. To correlate background two same file is needed. So the sorted root file is copied by Clone.sh
 
-7. To achieve signal dimuon is correlated with tracks in the same event. SortFiles/Correl_peak_sig.C is correlate signal. To get the background dimuon is correlated with tracks in the random 10 events. SortFiles/Correl_peak_bkg.C is correlate background.
-	do_peak_sig.sh and do_peak_bkg.sh are used to run Correl_peak_sig.C and Correl_peak_bkg.C
-	The correlation results are stored as dphi-deta distribution in the SortFiles/CorrDist/ directory.
+8. To see the Correlation distribution masses are separeted in 120 bins. And the tracks are correlated with dimuons. SortFiles/Correl_sig0.C ~ Correl_sig9.C is used to correlated signal and SortFiles/Correl_bkg0.C ~ Correl_bkg9.C is used to correlated background. To run the macros SortFiles/do_Corr_sig0.sh ~ do_Corr_sig9.sh and SortFiles/do_Corr_bkg0.sh ~ do_Corr_bkg9.sh are used. The result histograms are stored in the SigCorr/ and BkgCorr/ directories.
+
+9. To achieve signal dimuon is correlated with tracks in the same event. SortFiles/Correl_peak_sig.C is correlate signal. To get the background dimuon is correlated with tracks in the random 10 events. SortFiles/Correl_peak_bkg.C is correlate background.
 
 v1: integrated
 mult: 0, 300
