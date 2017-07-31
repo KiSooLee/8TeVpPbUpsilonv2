@@ -22,7 +22,7 @@ using namespace std;
 
 bool InAcc(Double_t muPt, Double_t muEta);
 
-void Sort2(bool isMC = false, const Int_t MultMin = 0, const Int_t MultMax = 300, const Double_t ptMin = 0, const Double_t ptMax = 30, const Double_t rapMin = -2.4, const Double_t rapMax = 2.4, const Double_t TrkptMin = 0, const Double_t TrkptMax = 1, TString version = "v1")
+void Sort2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300, const Double_t ptMin = 0, const Double_t ptMax = 30, const Double_t rapMin = -2.4, const Double_t rapMax = 2.4, const Double_t TrkptMin = 0, const Double_t TrkptMax = 1, TString version = "v1")
 {
 //Make directory{{{
 	TString mainDIR = gSystem->ExpandPathName(gSystem->pwd());
@@ -176,7 +176,7 @@ void Sort2(bool isMC = false, const Int_t MultMin = 0, const Int_t MultMax = 300
 	Int_t EventNb = 0;
 
 //output file{{{
-	TFile* fout = new TFile(Form("SortFiles/Sort_OniaTree_PADoubleMuon_%s_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s_%d.root", DM.Data(), MultMin, MultMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data(), SortN), "RECREATE");
+	TFile* fout = new TFile(Form("SortFiles/Sort_OniaTree_PADoubleMuon_%s_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s_%d.root", DM.Data(), multMin, multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data(), SortN), "RECREATE");
 //}}}
 
 	for(Int_t ievt = Numbin[SortN]; ievt < Numbin[SortN+1]; ievt++)
@@ -198,7 +198,7 @@ void Sort2(bool isMC = false, const Int_t MultMin = 0, const Int_t MultMax = 300
 		}
 //}}}
 
-		if(Tot_Ntrk >= MultMin && Tot_Ntrk < MultMax)
+		if(Tot_Ntrk >= multMin && Tot_Ntrk < multMax)
 		{
 //Get trigger vector{{{
 			for(Int_t iqq = 0; iqq < Reco_QQ_size; iqq++)
@@ -240,7 +240,7 @@ void Sort2(bool isMC = false, const Int_t MultMin = 0, const Int_t MultMax = 300
 					if( (tmp_mass >= 8) && (tmp_mass <= 14) )
 					//if( (tmp_mass >= mean-peakFactor*sigma) && (tmp_mass <= mean+peakFactor*sigma) )
 					{
-						new( (*DMset.Vec_trg_peak)[Ntrg] )TLorentzVector(*Up_Reco_4mom);
+						new( (*DMset.Vec_trg)[Ntrg] )TLorentzVector(*Up_Reco_4mom);
 						Ntrg++;
 					}
 //}}}

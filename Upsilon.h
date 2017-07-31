@@ -78,8 +78,7 @@ class DiMuon
 		trk_eta = -99; trk_pt = -99; trk_phi = -99;
 		weight = -99; mult = -99;
 		Ntrg = -99; Nside = -99; Nass = -99;
-		Vec_trg_peak->Clear();
-		Vec_trg_side->Clear();
+		Vec_trg->Clear();
 		Vec_ass->Clear();
 	}
 
@@ -108,8 +107,7 @@ class DiMuon
 		tout->Branch("Ntrg", &Ntrg);
 		tout->Branch("Nside", &Nside);
 		tout->Branch("Nass", &Nass);
-		Vec_trg_peak = new TClonesArray("TLorentzVector", 250);
-		Vec_trg_side = new TClonesArray("TLorentzVector", 250);
+		Vec_trg = new TClonesArray("TLorentzVector", 250);
 		Vec_ass = new TClonesArray("TLorentzVector", 1500);
 		tout->Branch("Vec_trg", "TClonesArray", &Vec_trg, 32000, 0);
 		tout->Branch("Vec_ass", "TClonesArray", &Vec_ass, 32000, 0);
