@@ -66,8 +66,7 @@ class DiMuon
 	Double_t weight;
 	Double_t mult;
 	Int_t Ntrg, Nside, Nass;
-	TClonesArray* Vec_trg_peak;
-	TClonesArray* Vec_trg_side;
+	TClonesArray* Vec_trg;
 	TClonesArray* Vec_ass;
 
 	void clear()
@@ -112,8 +111,7 @@ class DiMuon
 		Vec_trg_peak = new TClonesArray("TLorentzVector", 250);
 		Vec_trg_side = new TClonesArray("TLorentzVector", 250);
 		Vec_ass = new TClonesArray("TLorentzVector", 1500);
-		tout->Branch("Vec_trg_peak", "TClonesArray", &Vec_trg_peak, 32000, 0);
-		tout->Branch("Vec_trg_side", "TClonesArray", &Vec_trg_side, 32000, 0);
+		tout->Branch("Vec_trg", "TClonesArray", &Vec_trg, 32000, 0);
 		tout->Branch("Vec_ass", "TClonesArray", &Vec_ass, 32000, 0);
 	}
 //}}}
