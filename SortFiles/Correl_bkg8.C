@@ -88,6 +88,7 @@ void Correl_bkg8(bool isMC = false, const Int_t multMin = 0, const Int_t multMax
 //}}}
 
 	const Int_t Nevt = tin1->GetEntries();
+	const Int_t Bevt = tin2->GetEntries();
 
 	for(Int_t ievt = 0; ievt < Nevt; ievt++)
 	{
@@ -109,7 +110,7 @@ void Correl_bkg8(bool isMC = false, const Int_t multMin = 0, const Int_t multMax
 //background{{{
 					for(Int_t irand = 0; irand < 10; irand++)
 					{
-						Int_t rNum = gRandom->Integer(Nevt);
+						Int_t rNum = gRandom->Integer(Bevt);
 						if(rNum == ievt)
 						{
 							irand--;
