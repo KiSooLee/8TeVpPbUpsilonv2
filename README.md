@@ -11,7 +11,7 @@
 
 6. Because of the large events correlation process takes too long time. In order to reduce running time root file is collected with Sort0.C ~ Sort9.C. 5000000 events are collected in a root file in each pt and multiplicity, rapidity bin. do_Sort0.sh ~do_Sort9.sh is used to run Sort?.C
 
-7. The sorted files are stored in SortFiles/ directory. To correlate background two same file is needed. So the sorted root file is copied by Clone.sh
+7. The sorted files are stored in SortFiles/ directory. To correlate background trigger and associator should be from different event. So two files are used. e.g. 0 for trigger and 1 for associator
 
 8. To see the Correlation distribution masses are separeted in 120 bins. And the tracks are correlated with dimuons. SortFiles/Correl_sig0.C ~ Correl_sig9.C is used to correlated signal and SortFiles/Correl_bkg0.C ~ Correl_bkg9.C is used to correlated background. To run the macros SortFiles/do_Corr_sig0.sh ~ do_Corr_sig9.sh and SortFiles/do_Corr_bkg0.sh ~ do_Corr_bkg9.sh are used. The result histograms are stored in the SigCorr/ and BkgCorr/ directories.
 
