@@ -127,7 +127,7 @@ void Correl_sig6(bool isMC = false, const Int_t multMin = 0, const Int_t multMax
 		h1[imass]->Draw("LEGO");
 	}
 
-	TFile* fout = new TFile(Form("SigCorr/deta-dphi_%s_distribution_sig_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s_%d.root", DM.Data(), (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)rapMin, (int)rapMax, (int)TrkptMin, (int)TrkptMax, version.Data(), SortN), "RECREATE");
+	TFile* fout = new TFile(Form("SigCorr/deta-dphi_%s_distribution_sig_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s_%d.root", DM.Data(), (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data(), SortN), "RECREATE");
 	fout->cd();
 	for(Int_t imass = 0; imass < 120; imass++)
 	{
