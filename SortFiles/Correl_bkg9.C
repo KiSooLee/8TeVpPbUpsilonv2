@@ -35,14 +35,14 @@ void Correl_bkg9(bool isMC = false, const Int_t multMin = 0, const Int_t multMax
 	if(isMC) DM = "MC";
 	else DM = "RD";
 
-	const Int_t SortN = 8;
+	const Int_t SortN = 9;
 
 //Get files{{{
 	TString fname1, fname2;
 	TChain* tin1 = new TChain("UpsilonTree");
 	TChain* tin2 = new TChain("UpsilonTree");
 	fname1 = Form("Sort_OniaTree_PADoubleMuon_%s_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s_%d.root", DM.Data(), multMin, multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data(), SortN);
-	fname2 = Form("Sort_OniaTree_PADoubleMuon_%s_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s_%d_clone.root", DM.Data(), multMin, multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data(), SortN);
+	fname2 = Form("Sort_OniaTree_PADoubleMuon_%s_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s_0.root", DM.Data(), multMin, multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data());
 	tin1->Add(fname1.Data());
 	tin2->Add(fname2.Data());
 //}}}
