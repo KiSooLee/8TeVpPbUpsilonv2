@@ -43,9 +43,9 @@ void YieldDist(TString version = "v1")
 		h2S = new TH1D("h2S", ";y;Counts", rap_narr-1, rapBinsArr);
 		h3S = new TH1D("h3S", ";y;Counts", rap_narr-1, rapBinsArr);
 	}
-	h1S->Sumw2();
-	h2S->Sumw2();
-	h3S->Sumw2();
+	FormTH1Marker(h1S, 0, 1, 1);
+	FormTH1Marker(h2S, 1, 1, 1);
+	FormTH1Marker(h3S, 2, 1, 1);
 //}}}
 
 	for(Int_t imult = 0; imult < mult_narr-1; imult++)
@@ -117,11 +117,14 @@ void YieldDist(TString version = "v1")
 	h3S->Draw();
 	c3S->SaveAs(Form("Yield_distribution_3S_%s.pdf", version.Data()));
 	call->cd();
-	h1S->SetLineColor(1);
-	h2S->SetLineColor(2);
-	h3S->SetLineColor(4);
 	h1S->Draw();
 	h2S->Draw("same");
 	h3S->Draw("same");
+	TLegend* l1 = new TLegend(0.7, 0.7, 0.9, 0.9);
+	FormLegend(l1, 0.04);
+	l1->AddEntry(h1S, "1S", "pl");
+	l1->AddEntry(h2S, "2S", "pl");
+	l1->AddEntry(h3S, "3S", "pl");
+	l1->Draw();
 	call->SaveAs(Form("Yield_distribution_all_%s.pdf", version.Data()));
 }
