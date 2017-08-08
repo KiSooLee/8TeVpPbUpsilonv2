@@ -13,24 +13,24 @@ Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 30};
 //}}}
 */
-
+/*
 //v2{{{
 Double_t multBinsArr[] = {0, 300};
 Double_t rapBinsArr[] = {-2.4, 2.4};
-Double_t ptBinsArr[] = {0.0, 3.0, 5.0, 7.0, 9.0, 11.0, 15.0, 30.0};
+Double_t ptBinsArr[] = {0.0, 2.0, 4.0, 6.0, 9.0, 12.0, 30.0};
 //}}}
+*/
 
-/*
 //v3{{{
-Double_t multBinsArr[] = {0, 100, 150, 300};
+Double_t multBinsArr[] = {0, 50, 80, 110, 150, 300};
 Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 30};
 //}}}
-*/
+
 /*
 //v4{{{
 Double_t multBinsArr[] = {0, 300};
-Double_t rapBinsArr[] = {-2.4, -1.2, 0.0, 1.2, 2.4};
+Double_t rapBinsArr[] = {0.0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4};
 Double_t ptBinsArr[] = {0, 30};
 //}}}
 */
