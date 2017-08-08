@@ -18,20 +18,42 @@
 #include <RooPlot.h>
 //}}}
 
-const Int_t colorArr[] = {1, 2, 4, 6, 3, 94, 5, 7};
+const Int_t colorArr[] = {1, kRed+2, kBlue+2, kMagenta+2, kGreen+2, 94, 5, 7};
 const Int_t markerArr[] = {20, 21, 29, 33, 34, 22, 23, 28};
 const Int_t hfillArr[]  = {2004, 2011, 2022, 2020, 2025, 3006, 3007, 2016};
 
 void SetStyle()
 {
 //{{{
-	gStyle->SetOptFit(0);
+	gROOT->SetStyle("Plain");
+	gStyle->SetOptFit(1);
 	gStyle->SetTitleFont(62,"xyz");
 	gStyle->SetLabelFont(62,"xyz");
-	gStyle->SetPadTopMargin(0.1);
-	gStyle->SetPadBottomMargin(0.13);
-	gStyle->SetPadLeftMargin(0.15);
-	gStyle->SetPadRightMargin(0.05);
+	gStyle->SetPalette(1);
+	gStyle->SetOptTitle(0);
+	gStyle->SetOptStat(0000);
+	gStyle->SetTitleFillColor(0);
+	gStyle->SetStatColor(0);
+
+	gStyle->SetFrameBorderMode(0);
+	gStyle->SetFrameFillColor(0);
+	gStyle->SetFrameLineColor(kBlack);
+
+	gStyle->SetCanvasColor(0);
+	gStyle->SetCanvasBorderMode(0);
+	gStyle->SetCanvasBorderSize(0);
+	gStyle->SetCanvasDefH(600);
+	gStyle->SetCanvasDefW(600);
+
+	gStyle->SetPadTopMargin(0.03);
+	gStyle->SetPadBottomMargin(0.12);
+	gStyle->SetPadLeftMargin(0.12);
+	gStyle->SetPadRightMargin(0.065);
+	gStyle->SetPadColor(0);
+	gStyle->SetPadBorderMode(0);
+	gStyle->SetPadBorderSize(0);
+	gStyle->SetPadTickX(1);
+	gStyle->SetPadTickY(1);
 //}}}
 }
 
@@ -61,10 +83,10 @@ void FormTH1(TH1* h1, Int_t color)
 	h1->Sumw2();
 	h1->GetXaxis()->CenterTitle();
 	h1->GetYaxis()->CenterTitle();
-	h1->GetXaxis()->SetTitleOffset(1.05);
-	h1->GetYaxis()->SetTitleOffset(1.05);
-	h1->GetXaxis()->SetTitleSize(0.045);
-	h1->GetYaxis()->SetTitleSize(0.045);
+	h1->GetXaxis()->SetTitleOffset(1.0);
+	h1->GetYaxis()->SetTitleOffset(1.0);
+	h1->GetXaxis()->SetTitleSize(0.048);
+	h1->GetYaxis()->SetTitleSize(0.048);
 	h1->GetXaxis()->SetTitleFont(42);
 	h1->GetYaxis()->SetTitleFont(42);
 	h1->GetXaxis()->SetLabelOffset(0.007);
@@ -84,10 +106,10 @@ void FormTH1Marker(TH1* h1, Int_t color, Int_t marker, Double_t size)
 	h1->Sumw2();
 	h1->GetXaxis()->CenterTitle();
 	h1->GetYaxis()->CenterTitle();
-	h1->GetXaxis()->SetTitleOffset(1.05);
-	h1->GetYaxis()->SetTitleOffset(1.05);
-	h1->GetXaxis()->SetTitleSize(0.045);
-	h1->GetYaxis()->SetTitleSize(0.045);
+	h1->GetXaxis()->SetTitleOffset(1.0);
+	h1->GetYaxis()->SetTitleOffset(1.0);
+	h1->GetXaxis()->SetTitleSize(0.048);
+	h1->GetYaxis()->SetTitleSize(0.048);
 	h1->GetXaxis()->SetTitleFont(42);
 	h1->GetYaxis()->SetTitleFont(42);
 	h1->GetXaxis()->SetLabelOffset(0.007);
@@ -110,10 +132,10 @@ void FormTH1Fill(TH1* h1, Int_t color, Int_t hfill)
 	h1->Sumw2();
 	h1->GetXaxis()->CenterTitle();
 	h1->GetYaxis()->CenterTitle();
-	h1->GetXaxis()->SetTitleOffset(1.05);
-	h1->GetYaxis()->SetTitleOffset(1.05);
-	h1->GetXaxis()->SetTitleSize(0.045);
-	h1->GetYaxis()->SetTitleSize(0.045);
+	h1->GetXaxis()->SetTitleOffset(1.0);
+	h1->GetYaxis()->SetTitleOffset(1.0);
+	h1->GetXaxis()->SetTitleSize(0.048);
+	h1->GetYaxis()->SetTitleSize(0.048);
 	h1->GetXaxis()->SetTitleFont(42);
 	h1->GetYaxis()->SetTitleFont(42);
 	h1->GetXaxis()->SetLabelOffset(0.007);
@@ -135,10 +157,10 @@ void FormTH2(TH1* h1)
 	h1->Sumw2();
 	h1->GetXaxis()->CenterTitle();
 	h1->GetYaxis()->CenterTitle();
-	h1->GetXaxis()->SetTitleOffset(1.05);
-	h1->GetYaxis()->SetTitleOffset(1.05);
-	h1->GetXaxis()->SetTitleSize(0.045);
-	h1->GetYaxis()->SetTitleSize(0.045);
+	h1->GetXaxis()->SetTitleOffset(1.0);
+	h1->GetYaxis()->SetTitleOffset(1.0);
+	h1->GetXaxis()->SetTitleSize(0.048);
+	h1->GetYaxis()->SetTitleSize(0.048);
 	h1->GetXaxis()->SetTitleFont(42);
 	h1->GetYaxis()->SetTitleFont(42);
 	h1->GetXaxis()->SetLabelOffset(0.007);
@@ -175,10 +197,10 @@ void FormGraph(TGraph* g1, Int_t color, Int_t marker, Int_t size)
 //{{{
 	g1->GetXaxis()->CenterTitle();
 	g1->GetYaxis()->CenterTitle();
-	g1->GetXaxis()->SetTitleOffset(1.05);
-	g1->GetYaxis()->SetTitleOffset(1.3);
-	g1->GetXaxis()->SetTitleSize(0.045);
-	g1->GetYaxis()->SetTitleSize(0.045);
+	g1->GetXaxis()->SetTitleOffset(1.0);
+	g1->GetYaxis()->SetTitleOffset(1.0);
+	g1->GetXaxis()->SetTitleSize(0.048);
+	g1->GetYaxis()->SetTitleSize(0.048);
 	g1->GetXaxis()->SetTitleFont(42);
 	g1->GetYaxis()->SetTitleFont(42);
 	g1->GetXaxis()->SetLabelOffset(0.007);
