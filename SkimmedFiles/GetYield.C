@@ -28,7 +28,7 @@
 #include <RooAddPdf.h>
 #include <RooFitResult.h>
 #include <RooFormulaVar.h>
-#include "../Style_Kisoo.h"
+#include "../Style_Upv2.h"
 #include "../Upsilon.h"
 using namespace std;
 using namespace RooFit;
@@ -50,6 +50,7 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 	else gSystem->mkdir(yieldDIR.Data(), kTRUE);
 //}}}
 
+	//const Int_t Nmassbins = 120;
 	const Int_t Nmassbins = 120;
 	TFile* fout = new TFile(Form("Yield/Yield_Mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()), "RECREATE");
 
@@ -163,7 +164,7 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 	RooRealVar Erfsigma("Erfsigma", "Sigma of Errfunction", 1, 0, 100);
 	RooRealVar Erfp0("Erfp0", "1st parameter of Errfunction", 1, 0, 30);
 
-	RooGenericPdf* bkgErf = new RooGenericPdf("bkgErr", "Error background", "TMath::Exp(-@0/@1)*(TMath::Erf((@0-@2)/(TMath::Sqrt(2)*@3))+1)*0.5", RooArgList(*(ws->var("mass")), Erfp0, Erfmean, Erfsigma));
+	RooGenericPdf* bkgErf = new RooGenericPdf("bkgErf", "Error background", "TMath::Exp(-@0/@1)*(TMath::Erf((@0-@2)/(TMath::Sqrt(2)*@3))+1)*0.5", RooArgList(*(ws->var("mass")), Erfp0, Erfmean, Erfsigma));
 //}}}
 
 //Select Pdf{{{
@@ -260,6 +261,7 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 	Double_t Yield2SErr = ws->var("nSig2S")->getError();
 	Double_t Yield3S = ws->var("nSig3S")->getVal();
 	Double_t Yield3SErr = ws->var("nSig3S")->getError();
+	Double_t YieldBkg = ws->var("nBkg")->getError();
 
 	hYield->SetBinContent(1, Yield1S);
 	hYield->SetBinError(1, Yield1SErr);
@@ -272,12 +274,28 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 	Double_t sigma2out = ws->var("sigma1S_2")->getVal();
 	Double_t fracout = ws->var("frac")->getVal();
 	Double_t sigmaout = TMath::Sqrt(fracout*sigma1out*sigma1out+(1-fracout)*sigma2out*sigma2out);
-//	FILE* ftxt;
-//	ftxt = fopen(Form("Sigma_mult_%d-%d_pt_%d-%d_%s.txt", (int)multBinsArr[imult], (int)multBinsArr[imult+1], (int)ptBinsArr[ipt], (int)ptBinsArr[ipt+1], version.Data()), "w");
-//	if(ftxt != NULL) fprintf(ftxt, "%.2f %.2f %.2f %.2f %.2f \n", meanout, sigma1out, sigma2out, fracout, sigmaout);
+
+	TF1* Sgnfc = ws->pdf("twoCB1S")->asTF(*(ws->var("mass")));
+	TF1* Bkgfc = ws->pdf("bkgErf")->asTF(*(ws->var("mass")));
+
+	Double_t TIntgrSig = Sgnfc->Integral(8, 14);
+	Double_t TIntgrBkg = Bkgfc->Integral(8, 14);
+	Double_t IntgrSig = Sgnfc->Integral(meanout-2*sigmaout, meanout+2*sigmaout);
+	Double_t IntgrBkg = Bkgfc->Integral(meanout-2*sigmaout, meanout+2*sigmaout);
+
+	Double_t Significance = (Yield1S*IntgrSig/TIntgrSig)/TMath::Sqrt(((Yield1S*IntgrSig/TIntgrSig)+(YieldBkg*IntgrBkg/TIntgrBkg)));
+	FILE* ftxt;
+	ftxt = fopen(Form("Parameter/Result_parameters_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()), "w");
+	if(ftxt != NULL)
+	{
+		fprintf(ftxt, "mean  sigma1  sigma2  fraction  totsigma  totsig  totbkg sig  bkg  nsig  nbkg  significance \n");
+		fprintf(ftxt, "%.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f \n", meanout, sigma1out, sigma2out, fracout, sigmaout, TIntgrSig, TIntgrBkg, IntgrSig, IntgrBkg, Yield1S, YieldBkg, Significance);
+		fprintf(ftxt, "mean  U1sig1  U1sig2  U2sig1  U2sig2  U3sig1  U3sig2  fraction  alpha  n  Erfmean  Erfsig  Erfp0 \n");
+		fprintf(ftxt, "%.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f  %.2f \n", meanout, sigma1out, sigma2out, ws->var("sigma2S_1")->getVal(), ws->var("sigma2S_2")->getVal(), ws->var("sigma3S_1")->getVal(), ws->var("sigma3S_2")->getVal(), fracout, ws->var("alpha")->getVal(), ws->var("n")->getVal(), ws->var("Erfmean")->getVal(), ws->var("Erfsigma")->getVal(), ws->var("Erfp0")->getVal());
+	}
 //}}}
 
-	c1->SaveAs(Form("MassDist/MassDistribution_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()));
+	c1->SaveAs(Form("MassDist/MassDistribution_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s_%dbin.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data(), Nmassbins));
 	fout->cd();
 	massPlot->Write();
 	hYield->Write();
