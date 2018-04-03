@@ -7,38 +7,89 @@
 
 //Basic info{{{
 /*
-//v1{{{
+//v1: Integrated{{{
 Double_t multBinsArr[] = {0, 300};
 Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 30};
 //}}}
 */
 /*
-//v2{{{
+//v2: pt distribution{{{
 Double_t multBinsArr[] = {0, 300};
 Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0.0, 2.0, 4.0, 6.0, 9.0, 12.0, 30.0};
 //}}}
 */
-
-//v3{{{
+/*
+//v3: multiplicity distribution{{{
 Double_t multBinsArr[] = {0, 50, 80, 110, 150, 300};
 Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 30};
 //}}}
-
+*/
 /*
-//v4{{{
-Double_t multBinsArr[] = {0, 300};
-Double_t rapBinsArr[] = {0.0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4};
-Double_t ptBinsArr[] = {0, 30};
+//v4: low multiplicity pt distribution{{{
+Double_t multBinsArr[] = {0, 40};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 3.0, 6.0, 10.0, 30.0};
 //}}}
 */
-/*empty
-
+/*
+//v5: multiplicity 200~1500 pt distribution{{{
+Double_t multBinsArr[] = {200, 1500};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 6.0, 30.0};
+//}}}
+*/
+/*
+//v6: multiplicity 100~1500 pt distribution{{{
+Double_t multBinsArr[] = {100, 1500};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 6.0, 30.0};
+//}}}
+*/
+/*
+//v7: multiplicity 200~1500{{{
+Double_t multBinsArr[] = {200, 1500};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 6.0, 30.0};
+//}}}
+*/
+/*
+//v8: multiplicity 185~1500{{{
+Double_t multBinsArr[] = {185, 1500};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 6.0, 30.0};
+//}}}
+*/
+/*
+//v9: multiplicity 150~1500{{{
+Double_t multBinsArr[] = {150, 1500};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 6.0, 30.0};
+//}}}
+*/
+/*
+//v10: multiplicity 120~1500{{{
+Double_t multBinsArr[] = {120, 1500};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 6.0, 30.0};
+//}}}
 */
 
+//v11: multiplicity 120~1500{{{
+Double_t multBinsArr[] = {120, 1500};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 4.0, 6.0, 10.0, 30.0};
+//}}}
 
+/*
+//v12: multiplicity 110~1500{{{
+Double_t multBinsArr[] = {110, 1500};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 4.0, 6.0, 10.0, 30.0};
+//}}}
+*/
 const Int_t rap_narr = sizeof(rapBinsArr)/sizeof(double);
 const Int_t pt_narr = sizeof(ptBinsArr)/sizeof(double);
 const Int_t mult_narr = sizeof(multBinsArr)/sizeof(double);
