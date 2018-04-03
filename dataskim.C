@@ -44,6 +44,8 @@ void dataskim(bool isMC = false)
 	TChain* tin = new TChain("hionia/myTree");
 	fname1 = "oniaTree_pPb_20170504.root";
 	fname2 = "oniaTree_Pbp_20170504.root";
+	//fname1 = "oniaTree_pPb_20170504.root";//KISTI
+	//fname2 = "oniaTree_Pbp_20170504.root";//KISTI
 	tin->Add(fname1.Data());
 	tin->Add(fname2.Data());
 //}}}
