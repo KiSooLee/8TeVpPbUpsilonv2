@@ -42,10 +42,10 @@ void dataskim(bool isMC = false)
 //Get files{{{
 	TString fname1, fname2;
 	TChain* tin = new TChain("hionia/myTree");
-	fname1 = "oniaTree_pPb_20170504.root";
-	fname2 = "oniaTree_Pbp_20170504.root";
-	//fname1 = "oniaTree_pPb_20170504.root";//KISTI
-	//fname2 = "oniaTree_Pbp_20170504.root";//KISTI
+	fname1 = "oniaTree_pPb_20170504.root";//KUNPL
+	fname2 = "oniaTree_Pbp_20170504.root";//KUNPL
+	//fname1 = "/xrootd/store/user/kilee/pPb_8TeV_OniaTrkTree/oniaTree_pPb_20170504.root";//KISTI
+	//fname2 = "/xrootd/store/user/kilee/pPb_8TeV_OniaTrkTree/oniaTree_Pbp_20170504.root";//KISTI
 	tin->Add(fname1.Data());
 	tin->Add(fname2.Data());
 //}}}
