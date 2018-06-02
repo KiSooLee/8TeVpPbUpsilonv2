@@ -62,7 +62,7 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 
 //Get parameter{{{
 	ifstream in;
-	in.open(Form("Parameter/Parameters_Mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()));
+	in.open(Form("Parameter/Parameters_Mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)(ptMin*10), (int)(ptMax*10), (int)(rapMin*10), (int)(rapMax*10), version.Data()));
 	if(in.is_open())
 	{
 		while(!in.eof())
@@ -132,16 +132,16 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 //}}}
 
 //sigma{{{
-	RooRealVar sigma1S_1("sigma1S_1", "sigma1 of 1S", 0.05, 0.02, 0.18);
-	RooRealVar sigma2S_1("sigma2S_1", "sigma1 of 2S", 0.05, 0.02, 0.18);
-	RooRealVar sigma3S_1("sigma3S_1", "sigma1 of 3S", 0.05, 0.02, 0.18);
-	RooRealVar sigma1S_2("sigma1S_2", "sigma2 of 1S", 0.05, 0.02, 0.18);
-	RooRealVar sigma2S_2("sigma2S_2", "sigma2 of 2S", 0.05, 0.02, 0.18);
-	RooRealVar sigma3S_2("sigma3S_2", "sigma2 of 3S", 0.05, 0.02, 0.18);
+	RooRealVar sigma1S_1("sigma1S_1", "sigma1 of 1S", 0.05, 0.01, 0.18);
+	RooRealVar sigma2S_1("sigma2S_1", "sigma1 of 2S", 0.05, 0.01, 0.18);
+	RooRealVar sigma3S_1("sigma3S_1", "sigma1 of 3S", 0.05, 0.01, 0.18);
+	RooRealVar sigma1S_2("sigma1S_2", "sigma2 of 1S", 0.05, 0.01, 0.18);
+	RooRealVar sigma2S_2("sigma2S_2", "sigma2 of 2S", 0.05, 0.01, 0.18);
+	RooRealVar sigma3S_2("sigma3S_2", "sigma2 of 3S", 0.05, 0.01, 0.18);
 //}}}
 
-	RooRealVar alpha("alpha", "alpha of Crystal ball", 2., 0.1, 15.0);
-	RooRealVar n("n", "n of Crystal ball", 2.0, 0.1, 15.0);
+	RooRealVar alpha("alpha", "alpha of Crystal ball", 2., 0.1, 50.0);
+	RooRealVar n("n", "n of Crystal ball", 2.0, 0.1, 30.0);
 	RooRealVar* frac = new RooRealVar("frac", "CB fraction", 0.5, 0, 1);
 
 //twoCB function{{{
@@ -161,7 +161,7 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 
 //Background function{{{
 	RooRealVar Erfmean("Erfmean", "Mean of Errfunction", 5, 0, 10);
-	RooRealVar Erfsigma("Erfsigma", "Sigma of Errfunction", 1, 0, 100);
+	RooRealVar Erfsigma("Erfsigma", "Sigma of Errfunction", 1, 0, 200);
 	RooRealVar Erfp0("Erfp0", "1st parameter of Errfunction", 1, 0, 30);
 
 	RooGenericPdf* bkgErf = new RooGenericPdf("bkgErf", "Error background", "TMath::Exp(-@0/@1)*(TMath::Erf((@0-@2)/(TMath::Sqrt(2)*@3))+1)*0.5", RooArgList(*(ws->var("mass")), Erfp0, Erfmean, Erfsigma));
@@ -269,34 +269,49 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 	hYield->SetBinError(2, Yield2SErr);
 	hYield->SetBinContent(3, Yield3S);
 	hYield->SetBinError(3, Yield3SErr);
+//}}}
+
+//Save text{{{
 	Double_t meanout = ws->var("mean1S")->getVal();
 	Double_t sigma1out = ws->var("sigma1S_1")->getVal();
 	Double_t sigma2out = ws->var("sigma1S_2")->getVal();
 	Double_t fracout = ws->var("frac")->getVal();
 	Double_t sigmaout = TMath::Sqrt(fracout*sigma1out*sigma1out+(1-fracout)*sigma2out*sigma2out);
 
-	TF1* Sgnfc = ws->pdf("twoCB1S")->asTF(*(ws->var("mass")));
+	TF1* Sgnfc1S = ws->pdf("twoCB1S")->asTF(*(ws->var("mass")));
+	TF1* Sgnfc2S = ws->pdf("twoCB2S")->asTF(*(ws->var("mass")));
+	TF1* Sgnfc3S = ws->pdf("twoCB3S")->asTF(*(ws->var("mass")));
 	TF1* Bkgfc = ws->pdf("bkgErf")->asTF(*(ws->var("mass")));
 
-	Double_t TIntgrSig = Sgnfc->Integral(8, 14);
+	Double_t TIntgr1S = Sgnfc1S->Integral(8, 14);
+	Double_t TIntgr2S = Sgnfc1S->Integral(8, 14);
+	Double_t TIntgr3S = Sgnfc1S->Integral(8, 14);
 	Double_t TIntgrBkg = Bkgfc->Integral(8, 14);
-	Double_t IntgrSig = Sgnfc->Integral(meanout-2*sigmaout, meanout+2*sigmaout);
+	Double_t IntgrSig = Sgnfc1S->Integral(meanout-2*sigmaout, meanout+2*sigmaout);
 	Double_t IntgrBkg = Bkgfc->Integral(meanout-2*sigmaout, meanout+2*sigmaout);
 
-	Double_t Significance = (Yield1S*IntgrSig/TIntgrSig)/TMath::Sqrt(((Yield1S*IntgrSig/TIntgrSig)+(YieldBkg*IntgrBkg/TIntgrBkg)));
+	Double_t Significance = (Yield1S*IntgrSig/TIntgr1S)/TMath::Sqrt(((Yield1S*IntgrSig/TIntgr1S)+(YieldBkg*IntgrBkg/TIntgrBkg)));
 	FILE* ftxt;
-	ftxt = fopen(Form("Parameter/Result_parameters_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data()), "w");
+	ftxt = fopen(Form("Parameter/Result_parameters_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)(ptMin*10), (int)(ptMax*10), (int)(rapMin*10), (int)(rapMax*10), version.Data()), "w");
 	if(ftxt != NULL)
 	{
 		fprintf(ftxt, "mean  sigma1  sigma2  fraction  totsigma  totsig  totbkg sig  bkg  nsig  nbkg  significance \n");
-		fprintf(ftxt, "%.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f \n", meanout, sigma1out, sigma2out, fracout, sigmaout, TIntgrSig, TIntgrBkg, IntgrSig, IntgrBkg, Yield1S, YieldBkg, Significance);
-		fprintf(ftxt, "mean  U1sig1  U1sig2  U2sig1  U2sig2  U3sig1  U3sig2  fraction  alpha  n  Erfmean  Erfsig  Erfp0 \n");
-		fprintf(ftxt, "%.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f   %.2f  %.2f \n", meanout, sigma1out, sigma2out, ws->var("sigma2S_1")->getVal(), ws->var("sigma2S_2")->getVal(), ws->var("sigma3S_1")->getVal(), ws->var("sigma3S_2")->getVal(), fracout, ws->var("alpha")->getVal(), ws->var("n")->getVal(), ws->var("Erfmean")->getVal(), ws->var("Erfsigma")->getVal(), ws->var("Erfp0")->getVal());
+		fprintf(ftxt, "%.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f \n", meanout, sigma1out, sigma2out, fracout, sigmaout, TIntgr1S, TIntgrBkg, IntgrSig, IntgrBkg, Yield1S, YieldBkg, Significance);
+		fprintf(ftxt, "mean  U1sigma1  U1sigma2  U2sigma1  U2sigma2  U3sigma1  U3sigma2  fraction  alpha  n  Erfmean  Erfsigma  Erfp0 \n");
+		fprintf(ftxt, "%.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f   %.3f  \n", meanout, sigma1out, sigma2out, ws->var("sigma2S_1")->getVal(), ws->var("sigma2S_2")->getVal(), ws->var("sigma3S_1")->getVal(), ws->var("sigma3S_2")->getVal(), fracout, ws->var("alpha")->getVal(), ws->var("n")->getVal(), ws->var("Erfmean")->getVal(), ws->var("Erfsigma")->getVal(), ws->var("Erfp0")->getVal());
+		fprintf(ftxt, "1SYield  2SYield  3SYield  1SIntgr  2STIntgr  3STIntgr  \n");
+		fprintf(ftxt, "%.3f   %.3f   %.3f   %.3f   %.3f   %.3f \n", Yield1S, Yield2S, Yield3S, TIntgr1S, TIntgr2S, TIntgr3S);
 	}
 //}}}
 
-	c1->SaveAs(Form("MassDist/MassDistribution_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s_%dbin.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), version.Data(), Nmassbins));
+	c1->SaveAs(Form("MassDist/MassDistribution_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s_%dbin.pdf", (int)multMin, (int)multMax, (int)(ptMin*10), (int)(ptMax*10), (int)(rapMin*10), (int)(rapMax*10), version.Data(), Nmassbins));
 	fout->cd();
 	massPlot->Write();
 	hYield->Write();
+	TH1D* hmass = new TH1D("hmass", "", Nmassbins, 8, 14);
+	reducedDS->fillHistogram(hmass, (*ws->var("mass")));
+	hmass->Write();
+	Sgnfc1S->Write();
+	Sgnfc2S->Write();
+	Sgnfc3S->Write();
 }
