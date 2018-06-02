@@ -1,11 +1,9 @@
 #!/bin/bash
 #GetYield.C(multMin, multMax, ptMin, ptMax, rapMin, rapMax, version)
 
-version="v2"
-root -l -b -q 'GetYield.C+(0, 300, 0, 3, -2.4, 2.4, '\"$version\"')'
-root -l -b -q 'GetYield.C+(0, 300, 3, 5, -2.4, 2.4, '\"$version\"')'
-root -l -b -q 'GetYield.C+(0, 300, 5, 7, -2.4, 2.4, '\"$version\"')'
-root -l -b -q 'GetYield.C+(0, 300, 7, 9, -2.4, 2.4, '\"$version\"')'
-root -l -b -q 'GetYield.C+(0, 300, 9, 11, -2.4, 2.4, '\"$version\"')'
-root -l -b -q 'GetYield.C+(0, 300, 11, 15, -2.4, 2.4, '\"$version\"')'
-root -l -b -q 'GetYield.C+(0, 300, 15, 30, -2.4, 2.4, '\"$version\"')'
+#version="v13"
+#root -l -b -q 'GetYield.C+(110, 300, 0, 4, -2.4, 2.4, '\"$version\"')'
+root -l -b -q 'GetYield.C+(110, 300, 0, 4, -2.4, 2.4, "v13")'
+root -l -b -q 'GetYield.C+(110, 300, 4, 6, -2.4, 2.4, "v13")'
+root -l -b -q 'GetYield.C+(110, 300, 6, 10, -2.4, 2.4, "v13")'
+root -l -b -q 'GetYield.C+(110, 300, 10, 30, -2.4, 2.4, "v13")'
