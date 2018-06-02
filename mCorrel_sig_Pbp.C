@@ -21,30 +21,23 @@
 using namespace std;
 //}}}
 
-void mCorrel_sig_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300, const Double_t ptMin = 0, const Double_t ptMax = 30, const Double_t rapMin = -2.4, const Double_t rapMax = 2.4, const Double_t TrkptMin = 0, const Double_t TrkptMax = 1, TString version = "v1", const Int_t imass = 0, const Int_t nmbin = 20)
+void mCorrel_sig_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300, const Double_t ptMin = 0, const Double_t ptMax = 30, const Double_t rapMin = -2.4, const Double_t rapMax = 2.4, const Double_t TrkptMin = 0, const Double_t TrkptMax = 1, TString version = "v1", const Int_t imass = 0)
 {
-/*
-//Make directory{{{
+//make directory{{{
 	TString mainDIR = gSystem->ExpandPathName(gSystem->pwd());
-	TString saveDIR = mainDIR + "/SigCorr";
+	TString saveDIR = mainDIR + Form("/%d-%d_%d-%d_%d-%d_%d-%d_%s", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, version.Data());
 	void * dirp = gSystem->OpenDirectory(saveDIR.Data());
 	if(dirp) gSystem->FreeDirectory(dirp);
 	else gSystem->mkdir(saveDIR.Data(), kTRUE);
 //}}}
-*/
-	TString mainDIR = gSystem->ExpandPathName(gSystem->pwd());
-	TString saveDIR = mainDIR + Form("/%d-%d_%d-%d_%d-%d_%d-%d_%d", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, nmbin);
-	void * dirp = gSystem->OpenDirectory(saveDIR.Data());
-	if(dirp) gSystem->FreeDirectory(dirp);
-	else gSystem->mkdir(saveDIR.Data(), kTRUE);
 
 //Get files{{{
 	TString fname1, fname2;
 	TChain* tin1 = new TChain("UpsilonTree");
-	for(Int_t ibin = 0; ibin < 120/nmbin; ibin++)
+	for(Int_t ibin = massBinsArr[imass]; ibin < massBinsArr[imass+1]; ibin++)
 	{
-		fname1 = Form("root://cms-xrdr.sdfarm.kr:1094///xrd/store/user/kilee/pPb_8TeV_OniaTrkTree/resultPbp1/%d-%d_%d-%d_%d-%d_%d-%d/Sort_OniaTree_Pbp1_PADoubleMuon_%d.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, imass*(120/nmbin)+ibin);
-		fname2 = Form("root://cms-xrdr.sdfarm.kr:1094///xrd/store/user/kilee/pPb_8TeV_OniaTrkTree/resultPbp2/%d-%d_%d-%d_%d-%d_%d-%d/Sort_OniaTree_Pbp2_PADoubleMuon_%d.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, imass*(120/nmbin)+ibin);
+		fname1 = Form("root://cms-xrdr.sdfarm.kr:1094///xrd/store/user/kilee/pPb_8TeV_OniaTrkTree/resultPbp1/%d-%d_%d-%d_%d-%d_%d-%d/Sort_OniaTree_Pbp1_PADoubleMuon_%d.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, ibin);
+		fname2 = Form("root://cms-xrdr.sdfarm.kr:1094///xrd/store/user/kilee/pPb_8TeV_OniaTrkTree/resultPbp2/%d-%d_%d-%d_%d-%d_%d-%d/Sort_OniaTree_Pbp2_PADoubleMuon_%d.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, ibin);
 		tin1->Add(fname1.Data());
 		tin1->Add(fname2.Data());
 	}
@@ -108,97 +101,42 @@ void mCorrel_sig_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 	{
 		if(ievt%100000 == 0) cout << "Events: " << ievt << " / " << Nevt << " [" << Form("%.1f", ((double)ievt/(double)Nevt)*100) << " %]" << endl;
 		tin1->GetEntry(ievt);
-/*
-		if(multMin <= mult && mult < multMax)
+
+//signal{{{
+		for(Int_t itrg = 0; itrg < Ntrg; itrg++)
 		{
-//Get true Ntrig{{{
-			Double_t TrueNtrg = 0;
-			for(Int_t itrg = 0; itrg < Ntrg; itrg++)
-			{
-				vec_trg = (TLorentzVector*) Vec_trg->At(itrg);
-				if(vec_trg == 0) continue;
-				Double_t trg_pt = vec_trg->Pt();
-				Double_t trg_y = vec_trg->Rapidity();
+			vec_trg = (TLorentzVector*) Vec_trg->At(itrg);
+			if(vec_trg == 0) continue;
+			Double_t trg_eta = vec_trg->Eta();
+			Double_t trg_phi = vec_trg->Phi();
+			Double_t trg_pt = vec_trg->Pt();
+			Double_t trg_y = vec_trg->Rapidity();
 
-				if(ptMin <= trg_pt && trg_pt < ptMax && rapMin <= trg_y && trg_y < rapMax)
+			for(Int_t itrk = 0; itrk < Nass; itrk++)
+			{
+				vec_ass = (TLorentzVector*) Vec_ass->At(itrk);
+				if(vec_ass == 0) continue;
+				Double_t ass_eta = vec_ass->Eta();
+				Double_t ass_phi = vec_ass->Phi();
+				Double_t deta = ass_eta - trg_eta;
+				Double_t dphi = ass_phi - trg_phi;
+				if(dphi > TMath::Pi()) dphi = dphi - 2*TMath::Pi();
+				if(dphi < -TMath::Pi()) dphi = dphi + 2*TMath::Pi();
+				if(dphi > -TMath::Pi() && dphi < -TMath::Pi()/2.) dphi = dphi + 2*TMath::Pi();
+				h1_1->Fill(deta, dphi, 1/(double)Ntrg);
+				h1_2->Fill(deta, dphi, 1/(double)Ntrg);
+				if(fabs(deta) > 2.0)
 				{
-					TrueNtrg++;
+					h2_1->Fill(deta, dphi, 1/(double)Ntrg);
+					h2_2->Fill(deta, dphi, 1/(double)Ntrg);
+				}
+				if(fabs(deta) > 1.0)
+				{
+					h3_1->Fill(deta, dphi, 1/(double)Ntrg);
+					h3_2->Fill(deta, dphi, 1/(double)Ntrg);
 				}
 			}
-//}}}
-
-//signal{{{
-			for(Int_t itrg = 0; itrg < Ntrg; itrg++)
-			{
-				vec_trg = (TLorentzVector*) Vec_trg->At(itrg);
-				if(vec_trg == 0) continue;
-				Double_t trg_eta = vec_trg->Eta();
-				Double_t trg_phi = vec_trg->Phi();
-				Double_t trg_pt = vec_trg->Pt();
-				Double_t trg_y = vec_trg->Rapidity();
-
-				if(ptMin <= trg_pt && trg_pt < ptMax && rapMin <= trg_y && trg_y < rapMax)
-				{
-					for(Int_t itrk = 0; itrk < Nass; itrk++)
-					{
-						vec_ass = (TLorentzVector*) Vec_ass->At(itrk);
-						if(vec_ass == 0) continue;
-						Double_t ass_pt = vec_ass->Pt();
-
-						if(TrkptMin <= ass_pt && ass_pt < TrkptMax)
-						{
-							Double_t ass_eta = vec_ass->Eta();
-							Double_t ass_phi = vec_ass->Phi();
-							Double_t deta = ass_eta - trg_eta;
-							Double_t dphi = ass_phi - trg_phi;
-							if(dphi > TMath::Pi()) dphi = dphi - 2*TMath::Pi();
-							if(dphi < -TMath::Pi()) dphi = dphi + 2*TMath::Pi();
-							if(dphi > -TMath::Pi() && dphi < -TMath::Pi()/2.) dphi = dphi + 2*TMath::Pi();
-							h1->Fill(deta, dphi, 1/(double)TrueNtrg);
-							if(fabs(deta) > 2.0) h2->Fill(deta, dphi, 1/(double)TrueNtrg);
-							if(fabs(deta) > 1.0) h3->Fill(deta, dphi, 1/(double)TrueNtrg);
-						}
-					}
-				}
-			}
-//}}}
 		}
-*/
-//signal{{{
-			for(Int_t itrg = 0; itrg < Ntrg; itrg++)
-			{
-				vec_trg = (TLorentzVector*) Vec_trg->At(itrg);
-				if(vec_trg == 0) continue;
-				Double_t trg_eta = vec_trg->Eta();
-				Double_t trg_phi = vec_trg->Phi();
-				Double_t trg_pt = vec_trg->Pt();
-				Double_t trg_y = vec_trg->Rapidity();
-
-				for(Int_t itrk = 0; itrk < Nass; itrk++)
-				{
-					vec_ass = (TLorentzVector*) Vec_ass->At(itrk);
-					if(vec_ass == 0) continue;
-					Double_t ass_eta = vec_ass->Eta();
-					Double_t ass_phi = vec_ass->Phi();
-					Double_t deta = ass_eta - trg_eta;
-					Double_t dphi = ass_phi - trg_phi;
-					if(dphi > TMath::Pi()) dphi = dphi - 2*TMath::Pi();
-					if(dphi < -TMath::Pi()) dphi = dphi + 2*TMath::Pi();
-					if(dphi > -TMath::Pi() && dphi < -TMath::Pi()/2.) dphi = dphi + 2*TMath::Pi();
-					h1_1->Fill(deta, dphi, 1/(double)Ntrg);
-					h1_2->Fill(deta, dphi, 1/(double)Ntrg);
-					if(fabs(deta) > 2.0)
-					{
-						h2_1->Fill(deta, dphi, 1/(double)Ntrg);
-						h2_2->Fill(deta, dphi, 1/(double)Ntrg);
-					}
-					if(fabs(deta) > 1.0)
-					{
-						h3_1->Fill(deta, dphi, 1/(double)Ntrg);
-						h3_2->Fill(deta, dphi, 1/(double)Ntrg);
-					}
-				}
-			}
 //}}}
 	}
 
@@ -218,7 +156,7 @@ void mCorrel_sig_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 //}}}
 
 //store{{{
-	TFile* fout = new TFile(Form("%d-%d_%d-%d_%d-%d_%d-%d_%d/deta-dphi_Pbp_distribution_sig_%d.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, nmbin, imass), "RECREATE");
+	TFile* fout = new TFile(Form("%d-%d_%d-%d_%d-%d_%d-%d_%s/deta-dphi_Pbp_distribution_sig_%d.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, version.Data(), imass), "RECREATE");
 	fout->cd();
 	h1_1->Write();
 	h1_2->Write();
