@@ -76,13 +76,13 @@ Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 6.0, 30.0};
 //}}}
 */
-
+/*
 //v11: multiplicity 120~1500{{{
 Double_t multBinsArr[] = {120, 1500};
 Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 4.0, 6.0, 10.0, 30.0};
 //}}}
-
+*/
 /*
 //v12: multiplicity 110~1500{{{
 Double_t multBinsArr[] = {110, 1500};
@@ -90,12 +90,18 @@ Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 4.0, 6.0, 10.0, 30.0};
 //}}}
 */
+
+//v13: multiplicity 110~300{{{
+Double_t multBinsArr[] = {110, 300};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0, 4.0, 6.0, 10.0, 30.0};
+Int_t massBinsArr[] = {0, 7, 15, 23, 26, 29, 32, 35, 56, 77, 98, 119};
+//}}}
+
 const Int_t rap_narr = sizeof(rapBinsArr)/sizeof(double);
 const Int_t pt_narr = sizeof(ptBinsArr)/sizeof(double);
 const Int_t mult_narr = sizeof(multBinsArr)/sizeof(double);
-
-const Int_t Numbin[10] = {0, 5000000, 10000000, 15000000, 20000000,
-								25000000, 30000000, 35000000, 40000000, 45000000};
+const Int_t mass_narr = sizeof(massBinsArr)/sizeof(int);
 
 const Double_t U1S_mass = 9.460;
 const Double_t U2S_mass = 10.023;
@@ -103,8 +109,10 @@ const Double_t U3S_mass = 10.355;
 const Double_t U1S_sigma = 0.00026;
 const Double_t U2S_sigma = 0.00031;
 const Double_t U3S_sigma = 0.0005;
-const Double_t peakFactor = 2.;
-const Double_t sideFactor = 2.;
+const Int_t Netabin1 = 32;
+const Int_t Netabin2 = 16;
+const Int_t Nphibin1 = 32;
+const Int_t Nphibin2 = 16;
 //}}}
 
 class DiMuon
