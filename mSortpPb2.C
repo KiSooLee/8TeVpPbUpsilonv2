@@ -14,7 +14,7 @@
 #include <TH1.h>
 #include <TF1.h>
 #include <TSystem.h>
-#include "Style_Upv2.h"
+#include "Style_Kisoo.h"
 #include "Upsilon.h"
 
 using namespace std;
@@ -22,23 +22,15 @@ using namespace std;
 
 bool InAcc(Double_t muPt, Double_t muEta);
 
-void mSortpPb2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300, const Double_t ptMin = 0, const Double_t ptMax = 30, const Double_t rapMin = -2.4, const Double_t rapMax = 2.4, const Double_t TrkptMin = 0, const Double_t TrkptMax = 1, TString version = "v1", const Int_t imass = 0)
+void mSortpPb2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300, const Double_t ptMin = 0, const Double_t ptMax = 30, const Double_t rapMin = -2.4, const Double_t rapMax = 2.4, const Double_t TrkptMin = 0, const Double_t TrkptMax = 1, const Int_t imass = 0)
 {
-/*
-//Make directory{{{
-	TString mainDIR = gSystem->ExpandPathName(gSystem->pwd());
-	TString saveDIR = mainDIR + "/SortFiles";
-	void * dirp = gSystem->OpenDirectory(saveDIR.Data());
-	if(dirp) gSystem->FreeDirectory(dirp);
-	else gSystem->mkdir(saveDIR.Data(), kTRUE);
-//}}}
-*/
-
+//make directory{{{
 	TString mainDIR = gSystem->ExpandPathName(gSystem->pwd());
 	TString saveDIR = mainDIR + Form("/%d-%d_%d-%d_%d-%d_%d-%d_pPb2", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax);
 	void * dirp = gSystem->OpenDirectory(saveDIR.Data());
 	if(dirp) gSystem->FreeDirectory(dirp);
 	else gSystem->mkdir(saveDIR.Data(), kTRUE);
+//}}}
 
 //Get files{{{
 	TString fname1;
@@ -176,14 +168,11 @@ void mSortpPb2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 	Int_t EventNb = 0;
 
 //output file{{{
-	//TFile* fout = new TFile(Form("SortFiles/Sort_OniaTree_PADoubleMuon_%s_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s_%d.root", DM.Data(), multMin, multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data(), SortN), "RECREATE");
 	TFile* fout = new TFile(Form("%d-%d_%d-%d_%d-%d_%d-%d_pPb2/Sort_OniaTree_pPb2_PADoubleMuon_%d.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, imass), "RECREATE");
 //}}}
 
-	//for(Int_t ievt = Nevt/2; ievt < Nevt; ievt++)
 	for(Int_t ievt = 0; ievt < Nevt; ievt++)
 	{
-		//if(ievt%100000 == 0) cout << "Events: " << ievt << " / " << Nevt << " [" << Form("%.1f", ((double)(ievt)/(double)(Nevt)*100)) << " %]" << endl;
 		if(ievt%100000 == 0) cout << "Events: " << ievt << " / " << Nevt << " [" << Form("%.1f", ((double)(ievt)/(double)(Nevt)*100)) << " %]" << endl;
 		tin->GetEntry(ievt);
 
