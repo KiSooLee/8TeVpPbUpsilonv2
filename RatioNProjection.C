@@ -197,11 +197,6 @@ void RatioNProjection(bool isMC = false, const Int_t multMin = 0, const Int_t mu
 	TLatex* lt1 = new TLatex();
 	FormLatex(lt1, 12, 0.04);
 	lt1->SetNDC();
-
-	TLatex* lt2 = new TLatex();
-	FormLatex(lt2, 12, 0.04);
-	lt2->SetNDC();
-
 //}}}
 
 	for(Int_t imass = 0; imass < mass_narr-1; imass++)
@@ -259,7 +254,7 @@ void RatioNProjection(bool isMC = false, const Int_t multMin = 0, const Int_t mu
 		cfull_fine->cd();
 		hfullRatio_fine->GetZaxis()->SetTitle("#frac{1}{N_{trig}}#frac{d^{2}N^{pair}}{d#Delta#etad#delta#phi}");
 		hfullRatio_fine->Draw("Surf1");
-		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8 TeV, N #geq %d", (int) multMin));
+		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N #geq %d", (int) multMin));
 		lt1->DrawLatex(0.1,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
 		lt1->DrawLatex(0.1,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 		cfull_fine->SaveAs(Form("CorrDist/CorrDistFull/plot_corr_full_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_neta_%d_nphi_%d_%s_%d.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, Netabin1, Nphibin1, version.Data(), imass));
@@ -275,7 +270,7 @@ void RatioNProjection(bool isMC = false, const Int_t multMin = 0, const Int_t mu
 		cfull_coarse->cd();
 		hfullRatio_coarse->GetZaxis()->SetTitle("#frac{1}{N_{trig}}#frac{d^{2}N^{pair}}{d#Delta#etad#delta#phi}");
 		hfullRatio_coarse->Draw("Surf1");
-		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8 TeV, N #geq %d", (int) multMin));
+		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N #geq %d", (int) multMin));
 		lt1->DrawLatex(0.1,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
 		lt1->DrawLatex(0.1,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 		cfull_coarse->SaveAs(Form("CorrDist/CorrDistFull/plot_corr_full_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_neta_%d_nphi_%d_%s_%d.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, Netabin2, Nphibin2, version.Data(), imass));
@@ -326,7 +321,7 @@ void RatioNProjection(bool isMC = false, const Int_t multMin = 0, const Int_t mu
 		ccut2_fine->cd();
 		hcut2Ratio_fine->GetZaxis()->SetTitle("#frac{1}{N_{trig}}#frac{d^{2}N^{pair}}{d#Delta#etad#delta#phi}");
 		hcut2Ratio_fine->Draw("Surf1");
-		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8 TeV, N #geq %d", (int) multMin));
+		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N #geq %d", (int) multMin));
 		lt1->DrawLatex(0.1,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
 		lt1->DrawLatex(0.1,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 		ccut2_fine->SaveAs(Form("CorrDist/CorrDistCut2/plot_corr_cut2_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_neta_%d_nphi_%d_%s_%d.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, Netabin1, Nphibin1, version.Data(), imass));
@@ -343,7 +338,7 @@ void RatioNProjection(bool isMC = false, const Int_t multMin = 0, const Int_t mu
 		ccut2_coarse->cd();
 		hcut2Ratio_coarse->GetZaxis()->SetTitle("#frac{1}{N_{trig}}#frac{d^{2}N^{pair}}{d#Delta#etad#delta#phi}");
 		hcut2Ratio_coarse->Draw("Surf1");
-		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8 TeV, N #geq %d", (int) multMin));
+		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N #geq %d", (int) multMin));
 		lt1->DrawLatex(0.1,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
 		lt1->DrawLatex(0.1,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 		ccut2_coarse->SaveAs(Form("CorrDist/CorrDistCut2/plot_corr_cut2_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_neta_%d_nphi_%d_%s_%d.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, Netabin2, Nphibin2, version.Data(), imass));
@@ -394,7 +389,7 @@ void RatioNProjection(bool isMC = false, const Int_t multMin = 0, const Int_t mu
 		ccut1_fine->cd();
 		hcut1Ratio_fine->GetZaxis()->SetTitle("#frac{1}{N_{trig}}#frac{d^{2}N^{pair}}{d#Delta#etad#delta#phi}");
 		hcut1Ratio_fine->Draw("Surf1");
-		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8 TeV, N #geq %d", (int) multMin));
+		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N #geq %d", (int) multMin));
 		lt1->DrawLatex(0.1,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
 		lt1->DrawLatex(0.1,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 		ccut1_fine->SaveAs(Form("CorrDist/CorrDistCut1/plot_corr_cut1_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_neta_%d_nphi_%d_%s_%d.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, Netabin1, Nphibin1, version.Data(), imass));
@@ -411,7 +406,7 @@ void RatioNProjection(bool isMC = false, const Int_t multMin = 0, const Int_t mu
 		ccut1_coarse->cd();
 		hcut1Ratio_coarse->GetZaxis()->SetTitle("#frac{1}{N_{trig}}#frac{d^{2}N^{pair}}{d#Delta#etad#delta#phi}");
 		hcut1Ratio_coarse->Draw("Surf1");
-		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8 TeV, N #geq %d", (int) multMin));
+		lt1->DrawLatex(0.1,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N #geq %d", (int) multMin));
 		lt1->DrawLatex(0.1,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
 		lt1->DrawLatex(0.1,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 		ccut1_coarse->SaveAs(Form("CorrDist/CorrDistCut1/plot_corr_cut1_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_neta_%d_nphi_%d_%s_%d.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, Netabin2, Nphibin2, version.Data(), imass));
