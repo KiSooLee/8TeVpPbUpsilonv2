@@ -110,7 +110,10 @@ void Collect_pPb1(bool isMC = false, const Int_t multMin = 0, const Int_t multMa
 				{
 					vec_ass = (TLorentzVector*) Vec_ass->At(itrk);
 					if(vec_ass == 0) continue;
-					if(vec_ass->Pt() >= TrkptMin && vec_ass->Pt() < TrkptMax)
+					Double_t TrkptMintmp = 0.;
+					if(TrkptMin == 0) TrkptMintmp = 0.3;
+					else TrkptMintmp = TrkptMin;
+					if(vec_ass->Pt() >= TrkptMintmp && vec_ass->Pt() < TrkptMax)
 					{
 						new ( (*DMset.Vec_ass)[TrueNass] )TLorentzVector(*vec_ass);
 						TrueNass++;
