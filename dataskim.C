@@ -206,19 +206,23 @@ void dataskim(bool isMC = false)
 			if( Reco_QQ_sign[iqq] != 0) continue;
 			if( !InAcc(mupl_Reco_4mom->Pt(), mupl_Reco_4mom->Eta()) ) continue;
 			if( !InAcc(mumi_Reco_4mom->Pt(), mumi_Reco_4mom->Eta()) ) continue;
-			if( Up_Reco_4mom->M() < 8 || Up_Reco_4mom->M() > 14) continue;
+			//if( Up_Reco_4mom->M() < 8 || Up_Reco_4mom->M() > 14) continue;
 			if( abs(Up_Reco_4mom->Rapidity()) > 2.4 ) continue;
 			if( (Reco_QQ_trig[iqq]&1) != 1 ) continue;
 			bool muplSoft = ( (Reco_QQ_mupl_TMOneStaTight[iqq]) &&
 									(Reco_QQ_mupl_nTrkWMea[iqq] > 5) &&
 									(Reco_QQ_mupl_nPixWMea[iqq] > 0) &&
 									(Reco_QQ_mupl_dxy[iqq] < 0.3) &&
-									(Reco_QQ_mupl_dz[iqq] < 20.0) );
+									(Reco_QQ_mupl_dz[iqq] < 20.0) &&
+									(Reco_QQ_mupl_highPurity[iqq] == true) //purity used for pPb not PbPb
+									);
 			bool mumiSoft = ( (Reco_QQ_mumi_TMOneStaTight[iqq]) &&
 									(Reco_QQ_mumi_nTrkWMea[iqq] > 5) &&
 									(Reco_QQ_mumi_nPixWMea[iqq] > 0) &&
 									(Reco_QQ_mumi_dxy[iqq] < 0.3) &&
-									(Reco_QQ_mumi_dz[iqq] < 20.0) );
+									(Reco_QQ_mumi_dz[iqq] < 20.0)
+									(Reco_QQ_mumi_highPurity[iqq] == true) //purity used for pPb not PbPb
+									);
 			if( !(muplSoft && mumiSoft) ) continue;
 			if( Reco_QQ_VtxProb[iqq] < 0.01 ) continue;
 			if( abs(Up_Reco_4mom->Eta()) > 2.4 ) continue;
