@@ -14,7 +14,7 @@
 #include <TH1.h>
 #include <TF1.h>
 #include <TSystem.h>
-#include "Style_Kisoo.h"
+#include "Style_Upv2.h"
 #include "Upsilon.h"
 
 using namespace std;
@@ -44,6 +44,7 @@ void mSortpPb2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 
 //tree variables{{{
 	UInt_t eventNb;
+	Float_t zVtx;
 	ULong64_t HLTriggers;
 	Int_t Reco_QQ_size;
 	Int_t Reco_QQ_type[MaxQQ];
@@ -81,6 +82,7 @@ void mSortpPb2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 
 //Branches{{{
 	TBranch* b_eventNb;
+	TBranch* b_zVtx;
 	TBranch* b_HLTriggers;
 	TBranch* b_Reco_QQ_size;
 	TBranch* b_Reco_QQ_type;
@@ -114,6 +116,7 @@ void mSortpPb2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 
 //Branche address{{{
 	tin->SetBranchAddress("eventNb", &eventNb, &b_eventNb);
+	tin->SetBranchAddress("zVtx", &zVtx, &b_zVtx);
 	tin->SetBranchAddress("HLTriggers", &HLTriggers, &b_HLTriggers);
 	tin->SetBranchAddress("Reco_QQ_size", &Reco_QQ_size, &b_Reco_QQ_size);
 	tin->SetBranchAddress("Reco_QQ_type", &Reco_QQ_type, &b_Reco_QQ_type);
@@ -166,6 +169,7 @@ void mSortpPb2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 
 	const Int_t Nevt = tin->GetEntries();
 	Int_t EventNb = 0;
+	Float_t vz = -99.;
 
 //output file{{{
 	TFile* fout = new TFile(Form("%d-%d_%d-%d_%d-%d_%d-%d_pPb2/Sort_OniaTree_pPb2_PADoubleMuon_%d.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(rapMin*10), (int)(rapMax*10), (int)TrkptMin, (int)TrkptMax, imass), "RECREATE");
@@ -247,12 +251,14 @@ void mSortpPb2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 					}
 				}
 				if(Nass != 0) EventNb++;
+				vz = zVtx;
 			}
 //}}}
 		}
 		if(is_inMass && (Nass != 0))
 		{
 			DMset.eventNb = EventNb;
+			DMset.zVtx = vz;
 			DMset.Ntrg = Ntrg;
 			DMset.Nass = Nass;
 			DMset.mult = Tot_Ntrk;
