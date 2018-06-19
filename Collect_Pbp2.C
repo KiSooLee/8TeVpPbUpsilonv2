@@ -125,7 +125,7 @@ void Collect_Pbp2(bool isMC = false, const Int_t multMin = 0, const Int_t multMa
 			}
 //}}}
 		}
-		if(TrueNtrg != 0 && TrueNass != 0)
+		if(TrueNtrg != 0 && TrueNass != 0 && zVtx > -98)
 		{
 			DMset.Ntrg = TrueNtrg;
 			DMset.Nass = TrueNass;
