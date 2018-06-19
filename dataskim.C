@@ -66,6 +66,8 @@ void dataskim(bool isMC = false)
 	ULong64_t Reco_QQ_trig[MaxQQ];
 	Bool_t Reco_QQ_mupl_TMOneStaTight[MaxQQ];
 	Bool_t Reco_QQ_mumi_TMOneStaTight[MaxQQ];
+	Bool_t Reco_QQ_mupl_highPurity[MaxQQ];
+	Bool_t Reco_QQ_mumi_highPurity[MaxQQ];
 	Int_t Reco_QQ_mupl_nTrkWMea[MaxQQ];
 	Int_t Reco_QQ_mumi_nTrkWMea[MaxQQ];
 	Int_t Reco_QQ_mupl_nPixWMea[MaxQQ];
@@ -98,6 +100,8 @@ void dataskim(bool isMC = false)
 	TBranch* b_Reco_QQ_trig;
 	TBranch* b_Reco_QQ_mupl_TMOneStaTight;
 	TBranch* b_Reco_QQ_mumi_TMOneStaTight;
+	TBranch* b_Reco_QQ_mupl_highPurity;
+	TBranch* b_Reco_QQ_mumi_highPurity;
 	TBranch* b_Reco_QQ_mupl_nTrkWMea;
 	TBranch* b_Reco_QQ_mumi_nTrkWMea;
 	TBranch* b_Reco_QQ_mupl_nPixWMea;
@@ -126,6 +130,8 @@ void dataskim(bool isMC = false)
 	tin->SetBranchAddress("Reco_QQ_trig", Reco_QQ_trig, &b_Reco_QQ_trig);
 	tin->SetBranchAddress("Reco_QQ_mupl_TMOneStaTight", Reco_QQ_mupl_TMOneStaTight, &b_Reco_QQ_mupl_TMOneStaTight);
 	tin->SetBranchAddress("Reco_QQ_mumi_TMOneStaTight", Reco_QQ_mumi_TMOneStaTight, &b_Reco_QQ_mumi_TMOneStaTight);
+	tin->SetBranchAddress("Reco_QQ_mupl_highPurity", Reco_QQ_mupl_highPurity, &b_Reco_QQ_mupl_highPurity);
+	tin->SetBranchAddress("Reco_QQ_mumi_highPurity", Reco_QQ_mumi_highPurity, &b_Reco_QQ_mumi_highPurity);
 	tin->SetBranchAddress("Reco_QQ_mupl_nTrkWMea", Reco_QQ_mupl_nTrkWMea, &b_Reco_QQ_mupl_nTrkWMea);
 	tin->SetBranchAddress("Reco_QQ_mumi_nTrkWMea", Reco_QQ_mumi_nTrkWMea, &b_Reco_QQ_mumi_nTrkWMea);
 	tin->SetBranchAddress("Reco_QQ_mupl_nPixWMea", Reco_QQ_mupl_nPixWMea, &b_Reco_QQ_mupl_nPixWMea);
