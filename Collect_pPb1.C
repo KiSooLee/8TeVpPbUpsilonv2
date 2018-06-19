@@ -45,6 +45,7 @@ void Collect_pPb1(bool isMC = false, const Int_t multMin = 0, const Int_t multMa
 	Int_t Ntrg;
 	Int_t Nass;
 	Double_t mult;
+	Float_t zVtx;
 	TClonesArray* Vec_trg;
 	TClonesArray* Vec_ass;
 	Vec_trg = 0;
@@ -53,12 +54,14 @@ void Collect_pPb1(bool isMC = false, const Int_t multMin = 0, const Int_t multMa
 	TBranch* b_Ntrg;
 	TBranch* b_Nass;
 	TBranch* b_mult;
+	TBranch* b_zVtx;
 	TBranch* b_Vec_trg;
 	TBranch* b_Vec_ass;
 
 	tin1->SetBranchAddress("Ntrg", &Ntrg, &b_Ntrg);
 	tin1->SetBranchAddress("Nass", &Nass, &b_Nass);
 	tin1->SetBranchAddress("mult", &mult, &b_mult);
+	tin1->SetBranchAddress("zVtx", &zVtx, &b_zVtx);
 	tin1->SetBranchAddress("Vec_trg", &Vec_trg, &b_Vec_trg);
 	tin1->SetBranchAddress("Vec_ass", &Vec_ass, &b_Vec_ass);
 
@@ -127,6 +130,7 @@ void Collect_pPb1(bool isMC = false, const Int_t multMin = 0, const Int_t multMa
 			DMset.Ntrg = TrueNtrg;
 			DMset.Nass = TrueNass;
 			DMset.mult = mult;
+			DMset.zVtx = zVtx;
 			tout->Fill();
 		}
 	}
