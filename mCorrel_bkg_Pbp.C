@@ -76,6 +76,8 @@ void mCorrel_bkg_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 	Int_t Nass2;
 	Double_t mult1;
 	Double_t mult2;
+	Float_t zVtx1;
+	Float_t zVtx2;
 	TClonesArray* Vec_trg1;
 	TClonesArray* Vec_trg2;
 	TClonesArray* Vec_ass1;
@@ -91,6 +93,8 @@ void mCorrel_bkg_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 	TBranch* b_Nass2;
 	TBranch* b_mult1;
 	TBranch* b_mult2;
+	TBranch* b_zVtx1;
+	TBranch* b_zVtx2;
 	TBranch* b_Vec_trg1;
 	TBranch* b_Vec_trg2;
 	TBranch* b_Vec_ass1;
@@ -99,11 +103,13 @@ void mCorrel_bkg_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 	tin1->SetBranchAddress("Ntrg", &Ntrg1, &b_Ntrg1);
 	tin1->SetBranchAddress("Nass", &Nass1, &b_Nass1);
 	tin1->SetBranchAddress("mult", &mult1, &b_mult1);
+	tin1->SetBranchAddress("zVtx", &zVtx1, &b_zVtx1);
 	tin1->SetBranchAddress("Vec_trg", &Vec_trg1, &b_Vec_trg1);
 	tin1->SetBranchAddress("Vec_ass", &Vec_ass1, &b_Vec_ass1);
 	tin2->SetBranchAddress("Ntrg", &Ntrg2, &b_Ntrg2);
 	tin2->SetBranchAddress("Nass", &Nass2, &b_Nass2);
 	tin2->SetBranchAddress("mult", &mult2, &b_mult2);
+	tin2->SetBranchAddress("zVtx", &zVtx2, &b_zVtx2);
 	tin2->SetBranchAddress("Vec_trg", &Vec_trg2, &b_Vec_trg2);
 	tin2->SetBranchAddress("Vec_ass", &Vec_ass2, &b_Vec_ass2);
 //}}}
@@ -143,6 +149,11 @@ void mCorrel_bkg_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 				Int_t rNum = gRandom->Integer(Nevt2);
 				tin2->GetEntry(rNum);
 
+				if(|zVtx1 - zVtx2| > 20.)
+				{
+					irand--;
+					continue;
+				}
 				for(Int_t itrk = 0; itrk < Nass2; itrk++)
 				{
 					vec_ass2 = (TLorentzVector*) Vec_ass2->At(itrk);
@@ -195,6 +206,12 @@ void mCorrel_bkg_Pbp(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 			{
 				Int_t rNum = gRandom->Integer(Nevt1);
 				tin1->GetEntry(rNum);
+
+				if(|zVtx1 - zVtx2| > 20.)
+				{
+					irand--;
+					continue;
+				}
 
 				for(Int_t itrk = 0; itrk < Nass1; itrk++)
 				{
