@@ -16,7 +16,7 @@
 #include <RooDataSet.h>
 #include <RooArgSet.h>
 
-#include "Style_Kisoo.h"
+#include "Style_Upv2.h"
 #include "Upsilon.h"
 
 using namespace std;
@@ -42,10 +42,10 @@ void dataskim(bool isMC = false)
 //Get files{{{
 	TString fname1, fname2;
 	TChain* tin = new TChain("hionia/myTree");
-	fname1 = "oniaTree_pPb_20170504.root";//KUNPL
-	fname2 = "oniaTree_Pbp_20170504.root";//KUNPL
-	//fname1 = "/xrootd/store/user/kilee/pPb_8TeV_OniaTrkTree/oniaTree_pPb_20170504.root";//KISTI
-	//fname2 = "/xrootd/store/user/kilee/pPb_8TeV_OniaTrkTree/oniaTree_Pbp_20170504.root";//KISTI
+	//fname1 = "oniaTree_pPb_20170504.root";//KUNPL
+	//fname2 = "oniaTree_Pbp_20170504.root";//KUNPL
+	fname1 = "/xrootd/store/user/kilee/pPb_8TeV_OniaTrkTree/oniaTree_pPb_20170504.root";//KISTI
+	fname2 = "/xrootd/store/user/kilee/pPb_8TeV_OniaTrkTree/oniaTree_Pbp_20170504.root";//KISTI
 	tin->Add(fname1.Data());
 	tin->Add(fname2.Data());
 //}}}
@@ -226,7 +226,7 @@ void dataskim(bool isMC = false)
 									(Reco_QQ_mumi_nTrkWMea[iqq] > 5) &&
 									(Reco_QQ_mumi_nPixWMea[iqq] > 0) &&
 									(Reco_QQ_mumi_dxy[iqq] < 0.3) &&
-									(Reco_QQ_mumi_dz[iqq] < 20.0)
+									(Reco_QQ_mumi_dz[iqq] < 20.0) &&
 									(Reco_QQ_mumi_highPurity[iqq] == true) //purity used for pPb not PbPb
 									);
 			if( !(muplSoft && mumiSoft) ) continue;
