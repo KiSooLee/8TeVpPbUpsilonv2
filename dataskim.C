@@ -51,7 +51,7 @@ void dataskim(bool isMC = false)
 //}}}
 
 	TFile* fout;
-	fout = new TFile(Form("SkimmedFiles/Skim_OniaTree_%s_PADoubleMuon.root", DM.Data()), "RECREATE");
+	fout = new TFile(Form("SkimmedFiles/Skim_OniaTree_%s_PADoubleMuon_full.root", DM.Data()), "RECREATE");
 
 	const Int_t MaxQQ = 250;
 	const Int_t MaxTrk = 1500;
@@ -180,6 +180,8 @@ void dataskim(bool isMC = false)
 	tout->SetMaxTreeSize(10000000000000);
 	DMset.BuildBranch(tout);
 
+	TH1D* hEvent = new TH1D("hEvent", "", 20 ,0.5, 21.5);
+
 	const Int_t Nevt = tin->GetEntries();
 
 	for(Int_t ievt = 0; ievt < Nevt; ievt++)
@@ -187,11 +189,14 @@ void dataskim(bool isMC = false)
 		if(ievt%100000 == 0) cout << "Events: " << ievt << " / " << Nevt << "[" << Form("%.1f", ( (double)ievt/(double)Nevt)*100 ) << " %]" << endl;
 		tin->GetEntry(ievt);
 
+		hEvent->GetXaxis()->SetBinLabel(1,"Events total");
+		hEvent->Fill(1);
+
 		DMset.clear();
-		Double_t dphi = -999.;
-		Double_t deta = -999.;
 
 		if( (HLTriggers&1)!=1 ) continue;
+		hEvent->GetXaxis()->SetBinLabel(3, "Event trigger");
+		hEvent->Fill(3);
 
 //Get track multiplicity{{{
 		Int_t Tot_Ntrk = 0;
@@ -201,28 +206,39 @@ void dataskim(bool isMC = false)
 		}
 //}}}
 
+		DMset.mult = Tot_Ntrk;
+		DMset.eventNb = eventNb;
+
 //Get trigger vector{{{
 		for(Int_t iqq = 0; iqq < Reco_QQ_size; iqq++)
 		{
+			hEvent->GetXaxis()->SetBinLabel(4,"Di-muons Total");
+			hEvent->Fill(4);
+
 			Up_Reco_4mom = (TLorentzVector*) Reco_QQ_4mom->At(iqq);
 			mupl_Reco_4mom = (TLorentzVector*) Reco_QQ_mupl_4mom->At(iqq);
 			mumi_Reco_4mom = (TLorentzVector*) Reco_QQ_mumi_4mom->At(iqq);
 
 //Cuts for muon and Upsilon{{{
-			if( Reco_QQ_sign[iqq] != 0) continue;
+			if( (Reco_QQ_trig[iqq]&1) != 1 ) continue;
+			hEvent->GetXaxis()->SetBinLabel(7,"Di-muons trig");
+			hEvent->Fill(7);
+
 			if( !InAcc(mupl_Reco_4mom->Pt(), mupl_Reco_4mom->Eta()) ) continue;
 			if( !InAcc(mumi_Reco_4mom->Pt(), mumi_Reco_4mom->Eta()) ) continue;
+			hEvent->GetXaxis()->SetBinLabel(5,"Di-muons Accep");
+			hEvent->Fill(5);
+
 			//if( Up_Reco_4mom->M() < 8 || Up_Reco_4mom->M() > 14) continue;
-			if( abs(Up_Reco_4mom->Rapidity()) > 2.4 ) continue;
-			if( (Reco_QQ_trig[iqq]&1) != 1 ) continue;
-			bool muplSoft = ( (Reco_QQ_mupl_TMOneStaTight[iqq]) &&
+			//if( abs(Up_Reco_4mom->Rapidity()) > 2.4 ) continue;
+			bool muplSoft = ( (Reco_QQ_mupl_TMOneStaTight[iqq] == true) &&
 									(Reco_QQ_mupl_nTrkWMea[iqq] > 5) &&
 									(Reco_QQ_mupl_nPixWMea[iqq] > 0) &&
 									(Reco_QQ_mupl_dxy[iqq] < 0.3) &&
 									(Reco_QQ_mupl_dz[iqq] < 20.0) &&
 									(Reco_QQ_mupl_highPurity[iqq] == true) //purity used for pPb not PbPb
 									);
-			bool mumiSoft = ( (Reco_QQ_mumi_TMOneStaTight[iqq]) &&
+			bool mumiSoft = ( (Reco_QQ_mumi_TMOneStaTight[iqq] == true) &&
 									(Reco_QQ_mumi_nTrkWMea[iqq] > 5) &&
 									(Reco_QQ_mumi_nPixWMea[iqq] > 0) &&
 									(Reco_QQ_mumi_dxy[iqq] < 0.3) &&
@@ -230,8 +246,17 @@ void dataskim(bool isMC = false)
 									(Reco_QQ_mumi_highPurity[iqq] == true) //purity used for pPb not PbPb
 									);
 			if( !(muplSoft && mumiSoft) ) continue;
+			hEvent->GetXaxis()->SetBinLabel(8,"Di-muons mu ID");
+			hEvent->Fill(8);
+
 			if( Reco_QQ_VtxProb[iqq] < 0.01 ) continue;
-			if( abs(Up_Reco_4mom->Eta()) > 2.4 ) continue;
+			hEvent->GetXaxis()->SetBinLabel(6,"Di-muons Vtx prob.");
+			hEvent->Fill(6);
+
+			if( Reco_QQ_sign[iqq] != 0) continue;
+			hEvent->GetXaxis()->SetBinLabel(9,"Di-muoons charge sign");
+			hEvent->Fill(9);
+			//if( abs(Up_Reco_4mom->Eta()) > 2.4 ) continue;
 //}}}
 
 			DMset.mass = Up_Reco_4mom->M();
