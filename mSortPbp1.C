@@ -51,19 +51,18 @@ void mSortPbp1(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 	Int_t Reco_QQ_sign[MaxQQ];
 	Float_t Reco_QQ_VtxProb[MaxQQ];
 	ULong64_t Reco_QQ_trig[MaxQQ];
-	Bool_t Reco_QQ_mupl_highPurity[MaxQQ];
-	Bool_t Reco_QQ_mumi_highPurity[MaxQQ];
 	Float_t Reco_QQ_mupl_dxy[MaxQQ];
 	Float_t Reco_QQ_mumi_dxy[MaxQQ];
 	Float_t Reco_QQ_mupl_dz[MaxQQ];
 	Float_t Reco_QQ_mumi_dz[MaxQQ];
-	Int_t Reco_QQ_mupl_nTrkWMea[MaxQQ];
-	Int_t Reco_QQ_mumi_nTrkWMea[MaxQQ];
 	Bool_t Reco_QQ_mupl_TMOneStaTight[MaxQQ];
 	Bool_t Reco_QQ_mumi_TMOneStaTight[MaxQQ];
+	Bool_t Reco_QQ_mupl_highPurity[MaxQQ];
+	Bool_t Reco_QQ_mumi_highPurity[MaxQQ];
+	Int_t Reco_QQ_mupl_nTrkWMea[MaxQQ];
+	Int_t Reco_QQ_mumi_nTrkWMea[MaxQQ];
 	Int_t Reco_QQ_mupl_nPixWMea[MaxQQ];
 	Int_t Reco_QQ_mumi_nPixWMea[MaxQQ];
-	Int_t Reco_QQ_NtrkPt04[MaxQQ];
 	TClonesArray* Reco_QQ_4mom;
 	TClonesArray* Reco_QQ_mupl_4mom;
 	TClonesArray* Reco_QQ_mumi_4mom;
@@ -89,19 +88,18 @@ void mSortPbp1(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 	TBranch* b_Reco_QQ_sign;
 	TBranch* b_Reco_QQ_VtxProb;
 	TBranch* b_Reco_QQ_trig;
+	TBranch* b_Reco_QQ_mupl_TMOneStaTight;
+	TBranch* b_Reco_QQ_mumi_TMOneStaTight;
 	TBranch* b_Reco_QQ_mupl_highPurity;
 	TBranch* b_Reco_QQ_mumi_highPurity;
+	TBranch* b_Reco_QQ_mupl_nTrkWMea;
+	TBranch* b_Reco_QQ_mumi_nTrkWMea;
+	TBranch* b_Reco_QQ_mupl_nPixWMea;
+	TBranch* b_Reco_QQ_mumi_nPixWMea;
 	TBranch* b_Reco_QQ_mupl_dxy;
 	TBranch* b_Reco_QQ_mumi_dxy;
 	TBranch* b_Reco_QQ_mupl_dz;
 	TBranch* b_Reco_QQ_mumi_dz;
-	TBranch* b_Reco_QQ_mupl_nTrkWMea;
-	TBranch* b_Reco_QQ_mumi_nTrkWMea;
-	TBranch* b_Reco_QQ_mupl_TMOneStaTight;
-	TBranch* b_Reco_QQ_mumi_TMOneStaTight;
-	TBranch* b_Reco_QQ_mupl_nPixWMea;
-	TBranch* b_Reco_QQ_mumi_nPixWMea;
-	TBranch* b_Reco_QQ_NtrkPt04;
 	TBranch* b_Reco_QQ_4mom;
 	TBranch* b_Reco_QQ_mupl_4mom;
 	TBranch* b_Reco_QQ_mumi_4mom;
@@ -123,19 +121,18 @@ void mSortPbp1(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 	tin->SetBranchAddress("Reco_QQ_sign", &Reco_QQ_sign, &b_Reco_QQ_sign);
 	tin->SetBranchAddress("Reco_QQ_VtxProb", Reco_QQ_VtxProb, &b_Reco_QQ_VtxProb);
 	tin->SetBranchAddress("Reco_QQ_trig", Reco_QQ_trig, &b_Reco_QQ_trig);
+	tin->SetBranchAddress("Reco_QQ_mupl_TMOneStaTight", Reco_QQ_mupl_TMOneStaTight, &b_Reco_QQ_mupl_TMOneStaTight);
+	tin->SetBranchAddress("Reco_QQ_mumi_TMOneStaTight", Reco_QQ_mumi_TMOneStaTight, &b_Reco_QQ_mumi_TMOneStaTight);
 	tin->SetBranchAddress("Reco_QQ_mupl_highPurity", Reco_QQ_mupl_highPurity, &b_Reco_QQ_mupl_highPurity);
 	tin->SetBranchAddress("Reco_QQ_mumi_highPurity", Reco_QQ_mumi_highPurity, &b_Reco_QQ_mumi_highPurity);
+	tin->SetBranchAddress("Reco_QQ_mupl_nTrkWMea", Reco_QQ_mupl_nTrkWMea, &b_Reco_QQ_mupl_nTrkWMea);
+	tin->SetBranchAddress("Reco_QQ_mumi_nTrkWMea", Reco_QQ_mumi_nTrkWMea, &b_Reco_QQ_mumi_nTrkWMea);
+	tin->SetBranchAddress("Reco_QQ_mupl_nPixWMea", Reco_QQ_mupl_nPixWMea, &b_Reco_QQ_mupl_nPixWMea);
+	tin->SetBranchAddress("Reco_QQ_mumi_nPixWMea", Reco_QQ_mumi_nPixWMea, &b_Reco_QQ_mumi_nPixWMea);
 	tin->SetBranchAddress("Reco_QQ_mupl_dxy", Reco_QQ_mupl_dxy, &b_Reco_QQ_mupl_dxy);
 	tin->SetBranchAddress("Reco_QQ_mumi_dxy", Reco_QQ_mumi_dxy, &b_Reco_QQ_mumi_dxy);
 	tin->SetBranchAddress("Reco_QQ_mupl_dz", Reco_QQ_mupl_dz, &b_Reco_QQ_mupl_dz);
 	tin->SetBranchAddress("Reco_QQ_mumi_dz", Reco_QQ_mumi_dz, &b_Reco_QQ_mumi_dz);
-	tin->SetBranchAddress("Reco_QQ_mupl_nTrkWMea", Reco_QQ_mupl_nTrkWMea, &b_Reco_QQ_mupl_nTrkWMea);
-	tin->SetBranchAddress("Reco_QQ_mumi_nTrkWMea", Reco_QQ_mumi_nTrkWMea, &b_Reco_QQ_mumi_nTrkWMea);
-	tin->SetBranchAddress("Reco_QQ_mupl_TMOneStaTight", Reco_QQ_mupl_TMOneStaTight, &b_Reco_QQ_mupl_TMOneStaTight);
-	tin->SetBranchAddress("Reco_QQ_mumi_TMOneStaTight", Reco_QQ_mumi_TMOneStaTight, &b_Reco_QQ_mumi_TMOneStaTight);
-	tin->SetBranchAddress("Reco_QQ_mupl_nPixWMea", Reco_QQ_mupl_nPixWMea, &b_Reco_QQ_mupl_nPixWMea);
-	tin->SetBranchAddress("Reco_QQ_mumi_nPixWMea", Reco_QQ_mumi_nPixWMea, &b_Reco_QQ_mumi_nPixWMea);
-	tin->SetBranchAddress("Reco_QQ_NtrkPt04", Reco_QQ_NtrkPt04, &b_Reco_QQ_NtrkPt04);
 	tin->SetBranchAddress("Reco_QQ_4mom", &Reco_QQ_4mom, &b_Reco_QQ_4mom);
 	tin->SetBranchAddress("Reco_QQ_mupl_4mom", &Reco_QQ_mupl_4mom, &b_Reco_QQ_mupl_4mom);
 	tin->SetBranchAddress("Reco_QQ_mumi_4mom", &Reco_QQ_mumi_4mom, &b_Reco_QQ_mumi_4mom);
@@ -210,7 +207,6 @@ void mSortPbp1(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 				if( Up_Reco_4mom->M() > 8+(0.05*imass) && Up_Reco_4mom->M() <= 8+(0.05*(imass+1)) && Up_Reco_4mom->Rapidity() >= -2.4 && Up_Reco_4mom->Rapidity() <= 2.4 && Up_Reco_4mom->Pt() >= ptMin && Up_Reco_4mom->Pt() < ptMax)
 				{
 //Cuts for muon and Upsilon{{{
-					if( Reco_QQ_sign[iqq] != 0 ) continue;
 					if( (Reco_QQ_trig[iqq]&1)!=1 ) continue;
 					if( !InAcc(mupl_Reco_4mom->Pt(), mupl_Reco_4mom->Eta()) ) continue;
 					if( !InAcc(mumi_Reco_4mom->Pt(), mumi_Reco_4mom->Eta()) ) continue;
@@ -228,6 +224,7 @@ void mSortPbp1(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 											(Reco_QQ_mumi_highPurity[iqq]==true) );
 					if( !(muplSoft && mumiSoft) ) continue;
 					if( Reco_QQ_VtxProb[iqq] < 0.01 ) continue;
+					if( Reco_QQ_sign[iqq] != 0 ) continue;
 //}}}
 
 					new( (*DMset.Vec_trg)[Ntrg] )TLorentzVector(*Up_Reco_4mom);
@@ -263,7 +260,6 @@ void mSortPbp1(bool isMC = false, const Int_t multMin = 0, const Int_t multMax =
 			DMset.Ntrg = Ntrg;
 			DMset.Nass = Nass;
 			DMset.mult = Tot_Ntrk;
-			DMset.zVtx = 
 //cout << "Tot_Ntrk: " << Tot_Ntrk << endl;
 //cout << "mult: " << DMset.mult << endl;
 			DMset.weight = 1.;
