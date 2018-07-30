@@ -132,16 +132,16 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 //}}}
 
 //sigma{{{
-	RooRealVar sigma1S_1("sigma1S_1", "sigma1 of 1S", 0.05, 0.01, 0.18);
-	RooRealVar sigma2S_1("sigma2S_1", "sigma1 of 2S", 0.05, 0.01, 0.18);
-	RooRealVar sigma3S_1("sigma3S_1", "sigma1 of 3S", 0.05, 0.01, 0.18);
-	RooRealVar sigma1S_2("sigma1S_2", "sigma2 of 1S", 0.05, 0.01, 0.18);
-	RooRealVar sigma2S_2("sigma2S_2", "sigma2 of 2S", 0.05, 0.01, 0.18);
-	RooRealVar sigma3S_2("sigma3S_2", "sigma2 of 3S", 0.05, 0.01, 0.18);
+	RooRealVar sigma1S_1("sigma1S_1", "sigma1 of 1S", 0.05, 0.01, 0.5);
+	RooRealVar sigma2S_1("sigma2S_1", "sigma1 of 2S", 0.05, 0.01, 0.5);
+	RooRealVar sigma3S_1("sigma3S_1", "sigma1 of 3S", 0.05, 0.01, 0.5);
+	RooRealVar sigma1S_2("sigma1S_2", "sigma2 of 1S", 0.05, 0.01, 0.5);
+	RooRealVar sigma2S_2("sigma2S_2", "sigma2 of 2S", 0.05, 0.01, 0.5);
+	RooRealVar sigma3S_2("sigma3S_2", "sigma2 of 3S", 0.05, 0.01, 0.5);
 //}}}
 
-	RooRealVar alpha("alpha", "alpha of Crystal ball", 2., 0.1, 50.0);
-	RooRealVar n("n", "n of Crystal ball", 2.0, 0.1, 30.0);
+	RooRealVar alpha("alpha", "alpha of Crystal ball", 2., 0.7, 5.0);
+	RooRealVar n("n", "n of Crystal ball", 2.0, 0.7, 5.0);
 	RooRealVar* frac = new RooRealVar("frac", "CB fraction", 0.5, 0, 1);
 
 //twoCB function{{{
@@ -160,9 +160,9 @@ void GetYield(const Double_t multMin = 0, const Double_t multMax = 300, const Do
 //}}}
 
 //Background function{{{
-	RooRealVar Erfmean("Erfmean", "Mean of Errfunction", 5, 0, 10);
-	RooRealVar Erfsigma("Erfsigma", "Sigma of Errfunction", 1, 0, 200);
-	RooRealVar Erfp0("Erfp0", "1st parameter of Errfunction", 1, 0, 30);
+	RooRealVar Erfmean("Erfmean", "Mean of Errfunction", 5, 0, 40);
+	RooRealVar Erfsigma("Erfsigma", "Sigma of Errfunction", 1, 0, 40);
+	RooRealVar Erfp0("Erfp0", "1st parameter of Errfunction", 1, 0, 40);
 
 	RooGenericPdf* bkgErf = new RooGenericPdf("bkgErf", "Error background", "TMath::Exp(-@0/@1)*(TMath::Erf((@0-@2)/(TMath::Sqrt(2)*@3))+1)*0.5", RooArgList(*(ws->var("mass")), Erfp0, Erfmean, Erfsigma));
 //}}}
