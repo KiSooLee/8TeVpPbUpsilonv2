@@ -152,7 +152,7 @@ void YieldDist(TString version = "v1")
 	lt1->SetTextSize(0.04);
 	lt1->DrawLatex(0.54,0.70,"p_{T}^{#mu} > 4.0 GeV/c");
 	lt1->DrawLatex(0.54,0.63,Form("%d < p_{T}^{#Upsilon} < %d GeV/c", (int)ptBinsArr[0], (int)ptBinsArr[pt_narr-1]));
-	lt1->DrawLatex(0.54,0.56,Form("%d < mult. < %d GeV/c", (int)multBinsArr[0], (int)multBinsArr[mult_narr-1]));
+	lt1->DrawLatex(0.54,0.56,Form("%d < mult. < %d", (int)multBinsArr[0], (int)multBinsArr[mult_narr-1]));
 	lt1->DrawLatex(0.54,0.49,"|y^{#Upsilon}| < 2.4");
 	c1S->SaveAs(Form("Yield_distribution_1S_%s.pdf", version.Data()));
 
@@ -163,7 +163,7 @@ void YieldDist(TString version = "v1")
 	lt1N->SetTextSize(0.04);
 	lt1N->DrawLatex(0.54,0.70,"p_{T}^{#mu} > 4.0 GeV/c");
 	lt1N->DrawLatex(0.54,0.63,Form("%d < p_{T}^{#Upsilon} < %d GeV/c", (int)ptBinsArr[0], (int)ptBinsArr[pt_narr-1]));
-	lt1N->DrawLatex(0.54,0.56,Form("%d < mult. < %d GeV/c", (int)multBinsArr[0], (int)multBinsArr[mult_narr-1]));
+	lt1N->DrawLatex(0.54,0.56,Form("%d < mult. < %d", (int)multBinsArr[0], (int)multBinsArr[mult_narr-1]));
 	lt1N->DrawLatex(0.54,0.49,"|y^{#Upsilon}| < 2.4");
 	c1SN->SaveAs(Form("Yield_distribution_1SN_%s.pdf", version.Data()));
 
@@ -189,10 +189,14 @@ void YieldDist(TString version = "v1")
 	h3S->Draw("same");
 	TLegend* l1 = new TLegend(0.7, 0.7, 0.9, 0.9);
 	FormLegend(l1, 0.04);
-	l1->AddEntry(h1S, "1S", "pl");
-	l1->AddEntry(h2S, "2S", "pl");
-	l1->AddEntry(h3S, "3S", "pl");
+	l1->AddEntry(h1S, "#Upsilon (1S)", "pl");
+	l1->AddEntry(h2S, "#Upsilon (2S)", "pl");
+	l1->AddEntry(h3S, "#Upsilon (3S)", "pl");
 	l1->Draw();
+	lt1N->DrawLatex(0.54,0.66,"p_{T}^{#mu} > 4.0 GeV/c");
+	lt1N->DrawLatex(0.54,0.59,Form("%d < p_{T}^{#Upsilon} < %d GeV/c", (int)ptBinsArr[0], (int)ptBinsArr[pt_narr-1]));
+	lt1N->DrawLatex(0.54,0.52,Form("%d < mult. < %d", (int)multBinsArr[0], (int)multBinsArr[mult_narr-1]));
+	lt1N->DrawLatex(0.54,0.45,"|y^{#Upsilon}| < 2.4");
 	call->SaveAs(Form("Yield_distribution_all_%s.pdf", version.Data()));
 
 	callN->cd();
@@ -201,9 +205,13 @@ void YieldDist(TString version = "v1")
 	h3SN->Draw("same");
 	TLegend* l1N = new TLegend(0.7, 0.7, 0.9, 0.9);
 	FormLegend(l1N, 0.04);
-	l1N->AddEntry(h1S, "1S", "pl");
-	l1N->AddEntry(h2S, "2S", "pl");
-	l1N->AddEntry(h3S, "3S", "pl");
+	l1N->AddEntry(h1S, "#Upsilon (1S)", "pl");
+	l1N->AddEntry(h2S, "#Upsilon (2S)", "pl");
+	l1N->AddEntry(h3S, "#Upsilon (3S)", "pl");
 	l1N->Draw();
+	lt1N->DrawLatex(0.54,0.66,"p_{T}^{#mu} > 4.0 GeV/c");
+	lt1N->DrawLatex(0.54,0.59,Form("%d < p_{T}^{#Upsilon} < %d GeV/c", (int)ptBinsArr[0], (int)ptBinsArr[pt_narr-1]));
+	lt1N->DrawLatex(0.54,0.52,Form("%d < mult. < %d", (int)multBinsArr[0], (int)multBinsArr[mult_narr-1]));
+	lt1N->DrawLatex(0.54,0.45,"|y^{#Upsilon}| < 2.4");
 	callN->SaveAs(Form("Yield_distribution_allN_%s.pdf", version.Data()));
 }
