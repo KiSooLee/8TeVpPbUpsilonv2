@@ -417,6 +417,7 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	hRef->Draw();
 	gv2_1fine->SetMarkerStyle(20);
 	gv2_1fine->SetMarkerSize(1.2);
+	//gv2_1fine->SetMarkerSize(0);
 	gv2_1fine->Draw("pesame");
 	lt2->DrawLatex(0.2,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N #geq %d", (int) multMin));
 	lt2->DrawLatex(0.2,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
@@ -424,11 +425,13 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	else lt2->DrawLatex(0.2,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 	lt2->DrawLatex(0.2,0.75, "|#Delta#eta^{trk}| > 1.0");
 	cv2_1fine->SaveAs(Form("CorrDist/V2Dist/v2_dist_1fine_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
+	//cv2_1fine->SaveAs(Form("CorrDist/V2Dist/v2_dist_1fine_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_noMarker_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
 
 	cv2_1coarse->cd();
 	hRef->Draw();
 	gv2_1coarse->SetMarkerStyle(20);
 	gv2_1coarse->SetMarkerSize(1.2);
+	//gv2_1coarse->SetMarkerSize(0);
 	gv2_1coarse->Draw("pesame");
 	lt2->DrawLatex(0.2,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N^{trk} #geq %d", (int) multMin));
 	lt2->DrawLatex(0.2,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
@@ -436,6 +439,7 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	else lt2->DrawLatex(0.2,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 	lt2->DrawLatex(0.2,0.75, "|#Delta#eta^{trk}| > 1.0");
 	cv2_1coarse->SaveAs(Form("CorrDist/V2Dist/v2_dist_1coarse_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
+	//cv2_1coarse->SaveAs(Form("CorrDist/V2Dist/v2_dist_1coarse_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_noMarker_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
 //}}}
 
 //|deta| < 1.5{{{
@@ -443,6 +447,7 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	hRef->Draw();
 	gv2_1p5fine->SetMarkerStyle(20);
 	gv2_1p5fine->SetMarkerSize(1.2);
+	//gv2_1p5fine->SetMarkerSize(0);
 	gv2_1p5fine->Draw("pesame");
 	lt2->DrawLatex(0.2,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N^{trk} #geq %d", (int) multMin));
 	lt2->DrawLatex(0.2,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
@@ -450,11 +455,13 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	else lt2->DrawLatex(0.2,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 	lt2->DrawLatex(0.2,0.75, "|#Delta#eta^{trk}| > 1.5");
 	cv2_1p5fine->SaveAs(Form("CorrDist/V2Dist/v2_dist_1p5fine_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
+	//cv2_1p5fine->SaveAs(Form("CorrDist/V2Dist/v2_dist_1p5fine_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_noMarker_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
 
 	cv2_1p5coarse->cd();
 	hRef->Draw();
 	gv2_1p5coarse->SetMarkerStyle(20);
 	gv2_1p5coarse->SetMarkerSize(1.2);
+	//gv2_1p5coarse->SetMarkerSize(0);
 	gv2_1p5coarse->Draw("pesame");
 	lt2->DrawLatex(0.2,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N^{trk} #geq %d", (int) multMin));
 	lt2->DrawLatex(0.2,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
@@ -462,6 +469,7 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	else lt2->DrawLatex(0.2,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 	lt2->DrawLatex(0.2,0.75, "|#Delta#eta^{trk}| > 1.5");
 	cv2_1p5coarse->SaveAs(Form("CorrDist/V2Dist/v2_dist_1p5coarse_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
+	//cv2_1p5coarse->SaveAs(Form("CorrDist/V2Dist/v2_dist_1p5coarse_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_noMarker_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
 //}}}
 
 //|deta| < 2{{{
@@ -469,6 +477,7 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	hRef->Draw();
 	gv2_2fine->SetMarkerStyle(20);
 	gv2_2fine->SetMarkerSize(1.2);
+	//gv2_2fine->SetMarkerSize(0);
 	gv2_2fine->Draw("pesame");
 	lt2->DrawLatex(0.2,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N^{trk} #geq %d", (int) multMin));
 	lt2->DrawLatex(0.2,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
@@ -476,11 +485,13 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	else lt2->DrawLatex(0.2,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 	lt2->DrawLatex(0.2,0.75, "|#Delta#eta^{trk}| > 2.0");
 	cv2_2fine->SaveAs(Form("CorrDist/V2Dist/v2_dist_2fine_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
+	//cv2_2fine->SaveAs(Form("CorrDist/V2Dist/v2_dist_2fine_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_noMarker_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
 
 	cv2_2coarse->cd();
 	hRef->Draw();
 	gv2_2coarse->SetMarkerStyle(20);
 	gv2_2coarse->SetMarkerSize(1.2);
+	//gv2_2coarse->SetMarkerSize(0);
 	gv2_2coarse->Draw("pesame");
 	lt2->DrawLatex(0.2,0.9, Form("pPb #sqrt{s} = 8.16 TeV, N^{trk} #geq %d", (int) multMin));
 	lt2->DrawLatex(0.2,0.85, Form("%d < p_{T}^{trig} < %d GeV/c", (int) ptMin, (int) ptMax));
@@ -488,7 +499,9 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	else lt2->DrawLatex(0.2,0.8, Form("%d < p_{T}^{assoc} < %d GeV/c", (int) TrkptMin, (int) TrkptMax));
 	lt2->DrawLatex(0.2,0.75, "|#Delta#eta^{trk}| > 2.0");
 	cv2_2coarse->SaveAs(Form("CorrDist/V2Dist/v2_dist_2coarse_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
+	//cv2_2coarse->SaveAs(Form("CorrDist/V2Dist/v2_dist_2coarse_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_noMarker_%s.pdf", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
 //}}}
+
 
 	TFile* fout = new TFile(Form("CorrDist/CorrFiles/v2_dist_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_%s.root", (int)multMin, (int)multMax, (int)ptMin, (int)ptMax, (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()), "RECREATE");
 	fout->cd();
@@ -498,6 +511,7 @@ void extV2(bool isMC = false, const Int_t multMin = 0, const Int_t multMax = 300
 	gv2_1p5coarse->Write();
 	gv2_2fine->Write();
 	gv2_2coarse->Write();
+
 /*
 	gStyle->SetOptStat(0000);
 	cmass->cd();
