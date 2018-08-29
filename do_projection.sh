@@ -13,11 +13,11 @@
 #TrkptMax=("1" "2" "3" "4" "6" "10")
 multMin=("110")
 multMax=("300")
-ptMin=("0" "4" "6" "10")
-ptMax=("4" "6" "10" "30")
+ptMin=("0" "4" "7" "10")
+ptMax=("4" "7" "10" "30")
 rapMin=("-2.4")
 rapMax=("2.4")
-TrkptMin=("1")
+TrkptMin=("0")
 TrkptMax=("3")
 
 for((i=0; i<"${#multMin[@]}"; i++))
@@ -28,7 +28,8 @@ do
 		do
 			for((l=0; l<"${#TrkptMin[@]}"; l++))
 			do
-				root -l -b -q 'RatioNProjection.C+(false, '${multMin[$i]}', '${multMax[$i]}', '${ptMin[$j]}', '${ptMax[$j]}', '${rapMin[$k]}', '${rapMax[$k]}', '${TrkptMin[$l]}', '${TrkptMax[$l]}', "v13")'
+				#root -l -b -q 'DrawRatio.C+(false, '${multMin[$i]}', '${multMax[$i]}', '${ptMin[$j]}', '${ptMax[$j]}', '${rapMin[$k]}', '${rapMax[$k]}', '${TrkptMin[$l]}', '${TrkptMax[$l]}', "v16")'
+				root -l -b -q 'RatioNProjection.C+(false, '${multMin[$i]}', '${multMax[$i]}', '${ptMin[$j]}', '${ptMax[$j]}', '${rapMin[$k]}', '${rapMax[$k]}', '${TrkptMin[$l]}', '${TrkptMax[$l]}', "v16")'
 			done
 		done
 	done
