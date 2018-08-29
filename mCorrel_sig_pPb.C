@@ -54,18 +54,24 @@ void mCorrel_sig_pPb(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 	TCanvas* c2_2 = new TCanvas("c2_2", "", 0, 0, 600, 600);
 	TCanvas* c3_1 = new TCanvas("c3_1", "", 0, 0, 600, 600);
 	TCanvas* c3_2 = new TCanvas("c3_2", "", 0, 0, 600, 600);
-	TH2D* h1_1 = new TH2D("h1_1", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin1,-4.95,4.95,Nphibin1,-(0.5-1.0/((double)(Nphibin1+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin1+1)))*TMath::Pi());
-	TH2D* h1_2 = new TH2D("h1_2", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin2,-4.95,4.95,Nphibin2,-(0.5-1.0/((double)(Nphibin2+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin2+1)))*TMath::Pi());
-	TH2D* h2_1 = new TH2D("h2_1", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin1,-4.95,4.95,Nphibin1,-(0.5-1.0/((double)(Nphibin1+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin1+1)))*TMath::Pi());
-	TH2D* h2_2 = new TH2D("h2_2", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin2,-4.95,4.95,Nphibin2,-(0.5-1.0/((double)(Nphibin2+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin2+1)))*TMath::Pi());
-	TH2D* h3_1 = new TH2D("h3_1", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin1,-4.95,4.95,Nphibin1,-(0.5-1.0/((double)(Nphibin1+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin1+1)))*TMath::Pi());
-	TH2D* h3_2 = new TH2D("h3_2", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin2,-4.95,4.95,Nphibin2,-(0.5-1.0/((double)(Nphibin2+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin2+1)))*TMath::Pi());
+	TCanvas* c4_1 = new TCanvas("c4_1", "", 0, 0, 600, 600);
+	TCanvas* c4_2 = new TCanvas("c4_2", "", 0, 0, 600, 600);
+	TH2D* h1_1 = new TH2D("hSigpPb1_1", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin1,-4.95,4.95,Nphibin1,-(0.5-1.0/((double)(Nphibin1+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin1+1)))*TMath::Pi());
+	TH2D* h1_2 = new TH2D("hSigpPb1_2", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin2,-4.95,4.95,Nphibin2,-(0.5-1.0/((double)(Nphibin2+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin2+1)))*TMath::Pi());
+	TH2D* h2_1 = new TH2D("hSigpPb2_1", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin1,-4.95,4.95,Nphibin1,-(0.5-1.0/((double)(Nphibin1+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin1+1)))*TMath::Pi());
+	TH2D* h2_2 = new TH2D("hSigpPb2_2", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin2,-4.95,4.95,Nphibin2,-(0.5-1.0/((double)(Nphibin2+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin2+1)))*TMath::Pi());
+	TH2D* h3_1 = new TH2D("hSigpPb3_1", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin1,-4.95,4.95,Nphibin1,-(0.5-1.0/((double)(Nphibin1+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin1+1)))*TMath::Pi());
+	TH2D* h3_2 = new TH2D("hSigpPb3_2", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin2,-4.95,4.95,Nphibin2,-(0.5-1.0/((double)(Nphibin2+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin2+1)))*TMath::Pi());
+	TH2D* h4_1 = new TH2D("hSigpPb4_1", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin1,-4.95,4.95,Nphibin1,-(0.5-1.0/((double)(Nphibin1+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin1+1)))*TMath::Pi());
+	TH2D* h4_2 = new TH2D("hSigpPb4_2", ";#Delta#eta;#Delta#phi;S(#Delta#eta,#Delta#phi)", Netabin2,-4.95,4.95,Nphibin2,-(0.5-1.0/((double)(Nphibin2+1)))*TMath::Pi(),(1.5-1.0/((double)(Nphibin2+1)))*TMath::Pi());
 	FormTH2(h1_1);
 	FormTH2(h1_2);
 	FormTH2(h2_1);
 	FormTH2(h2_2);
 	FormTH2(h3_1);
 	FormTH2(h3_2);
+	FormTH2(h4_1);
+	FormTH2(h4_2);
 //}}}
 
 //get variables{{{
@@ -130,10 +136,15 @@ void mCorrel_sig_pPb(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 					h2_1->Fill(deta, dphi, 1/(double)Ntrg);
 					h2_2->Fill(deta, dphi, 1/(double)Ntrg);
 				}
-				if(fabs(deta) > 1.0)
+				if(fabs(deta) > 1.5)
 				{
 					h3_1->Fill(deta, dphi, 1/(double)Ntrg);
 					h3_2->Fill(deta, dphi, 1/(double)Ntrg);
+				}
+				if(fabs(deta) > 1.0)
+				{
+					h4_1->Fill(deta, dphi, 1/(double)Ntrg);
+					h4_2->Fill(deta, dphi, 1/(double)Ntrg);
 				}
 			}
 		}
@@ -153,6 +164,10 @@ void mCorrel_sig_pPb(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 	h3_2->Draw("Surf1");
 	c3_1->cd();
 	h3_2->Draw("Surf1");
+	c4_1->cd();
+	h4_2->Draw("Surf1");
+	c4_1->cd();
+	h4_2->Draw("Surf1");
 //}}}
 
 //store{{{
@@ -164,6 +179,8 @@ void mCorrel_sig_pPb(bool isMC = false, const Int_t multMin = 0, const Int_t mul
 	h2_2->Write();
 	h3_1->Write();
 	h3_2->Write();
+	h4_1->Write();
+	h4_2->Write();
 	fout->Close();
 //}}}
 }
