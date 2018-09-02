@@ -51,7 +51,8 @@ void dataskim(bool isMC = false)
 //}}}
 
 	TFile* fout;
-	fout = new TFile(Form("SkimmedFiles/Skim_OniaTree_%s_PADoubleMuon_full.root", DM.Data()), "RECREATE");
+	//fout = new TFile(Form("SkimmedFiles/Skim_OniaTree_%s_PADoubleMuon_full.root", DM.Data()), "RECREATE");
+	fout = new TFile(Form("SkimmedFiles/Skim_OniaTree_%s_PADoubleMuon_noAcc.root", DM.Data()), "RECREATE");
 
 	const Int_t MaxQQ = 250;
 	const Int_t MaxTrk = 1500;
@@ -224,10 +225,10 @@ void dataskim(bool isMC = false)
 			hEvent->GetXaxis()->SetBinLabel(7,"Di-muons trig");
 			hEvent->Fill(7);
 
-			if( !InAcc(mupl_Reco_4mom->Pt(), mupl_Reco_4mom->Eta()) ) continue;
-			if( !InAcc(mumi_Reco_4mom->Pt(), mumi_Reco_4mom->Eta()) ) continue;
-			hEvent->GetXaxis()->SetBinLabel(5,"Di-muons Accep");
-			hEvent->Fill(5);
+//			if( !InAcc(mupl_Reco_4mom->Pt(), mupl_Reco_4mom->Eta()) ) continue;
+//			if( !InAcc(mumi_Reco_4mom->Pt(), mumi_Reco_4mom->Eta()) ) continue;
+//			hEvent->GetXaxis()->SetBinLabel(5,"Di-muons Accep");
+//			hEvent->Fill(5);
 
 			//if( Up_Reco_4mom->M() < 8 || Up_Reco_4mom->M() > 14) continue;
 			//if( abs(Up_Reco_4mom->Rapidity()) > 2.4 ) continue;
