@@ -91,14 +91,14 @@ Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 4.0, 6.0, 10.0, 30.0};
 //}}}
 */
-
+/*
 //v13: multiplicity 110~300, Trk pT 1~3{{{
 Double_t multBinsArr[] = {110, 300};
 Double_t rapBinsArr[] = {-2.4, 2.4};
 Double_t ptBinsArr[] = {0, 4.0, 6.0, 10.0, 30.0};
 Int_t massBinsArr[] = {0, 7, 15, 23, 26, 29, 32, 35, 56, 77, 98, 119};
 //}}}
-
+*/
 /*
 //v14: multiplicity 110~300, Trk pT 0~3{{{
 Double_t multBinsArr[] = {110, 300};
@@ -107,6 +107,22 @@ Double_t ptBinsArr[] = {0, 4.0, 6.0, 10.0, 30.0};
 Int_t massBinsArr[] = {0, 7, 15, 23, 26, 29, 32, 35, 56, 77, 98, 119};
 //}}}
 */
+/*
+//v15: pt distribution, multiplicity 0~300{{{
+Double_t multBinsArr[] = {0, 300};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0.0, 4.0, 7.0, 10.0, 30.0};
+Int_t massBinsArr[] = {0, 7, 15, 23, 26, 29, 32, 35, 56, 77, 98, 119};
+//}}}
+*/
+
+//v16: pt distribution, multiplicity 110~300{{{
+Double_t multBinsArr[] = {110, 300};
+Double_t rapBinsArr[] = {-2.4, 2.4};
+Double_t ptBinsArr[] = {0.0, 4.0, 7.0, 10.0, 30.0};
+Int_t massBinsArr[] = {0, 7, 15, 23, 26, 29, 32, 35, 56, 77, 98, 119};
+//}}}
+
 
 const Int_t rap_narr = sizeof(rapBinsArr)/sizeof(double);
 const Int_t pt_narr = sizeof(ptBinsArr)/sizeof(double);
