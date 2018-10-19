@@ -30,8 +30,8 @@
 //Chi2 calculation{{{
 Int_t iparmass[13] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 //Int_t iparvn[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};//pol1
-Int_t iparvn[18] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}; //exp*erf or pol3
-//Int_t iparvn[17] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};//pol2
+Int_t iparvn[17] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};//pol2
+//Int_t iparvn[18] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};//pol3 or exp*erf
 
 struct GlobalChi2_width
 {
@@ -43,8 +43,8 @@ struct GlobalChi2_width
 	{
 		Double_t p1[13];
 		for(Int_t i = 0; i < 13; i++) p1[i] = par[iparmass[i]];
-		Double_t p2[18];
-		for(Int_t i = 0; i < 18; i++) p2[i] = par[iparvn[i]];
+		Double_t p2[17];
+		for(Int_t i = 0; i < 17; i++) p2[i] = par[iparvn[i]];
 		return (*fChi2_1)(p1) + (*fChi2_2)(p2);
 	}
 	const ROOT::Math::IMultiGenFunction * fChi2_1;
@@ -61,7 +61,7 @@ Double_t YieldFunc(TF1* f1, TF1* f2, TF1* f3, Double_t* x, Double_t* p)
 //}}}
 */
 
-//vn fitting function{{{
+//obsolate vn fitting function{{{
 /*
 Double_t vnFunc(TF1* f1, TF1* f2, TF1* f3, Double_t* x, Double_t* p)
 {
@@ -75,7 +75,6 @@ Double_t vnFunc(TF1* f1, Double_t* x, Double_t* p)
 }
 */
 //}}}
-
 
 //totalYield{{{
 Double_t TotalYield(Double_t* x, Double_t* par)
@@ -348,7 +347,7 @@ Double_t Totalvn(Double_t* x, Double_t* par)
 }
 //}}}
 */
-/*
+
 //totalvn pol2{{{
 Double_t Totalvn(Double_t* x, Double_t* par)
 {
@@ -365,10 +364,10 @@ Double_t Totalvn(Double_t* x, Double_t* par)
 	Double_t Bkgmean = par[10];
 	Double_t Bkgsigma = par[11];
 	Double_t Bkgp0 = par[12];
-	Double_t c = par[13];
-	Double_t d = par[14];
-	Double_t e = par[15];
-	Double_t f = par[16];
+	Double_t c0 = par[13];
+	Double_t c1 = par[14];
+	Double_t c2 = par[15];
+	Double_t c3 = par[16];
 	Double_t mean2 = mean*U2S_mass/U1S_mass;
 	Double_t mean3 = mean*U3S_mass/U1S_mass;
 	Double_t sigma1_2 = sigma*ratio;
@@ -401,10 +400,10 @@ Double_t Totalvn(Double_t* x, Double_t* par)
 	if(t1_1S >= -absAlpha)
 	{
 //{{{
-		return c*( N1*( exp(-t1_1S*t1_1S/2.) + frac*exp(-t2_1S*t2_1S/2.) ) )/
+		return c0*( N1*( exp(-t1_1S*t1_1S/2.) + frac*exp(-t2_1S*t2_1S/2.) ) )/
 				( N1*( exp(-t1_1S*t1_1S/2.) + frac*exp(-t2_1S*t2_1S/2.) )
 				+ N4*( TMath::Exp(-x[0]/Bkgp0)*(TMath::Erf((x[0]-Bkgmean)/(TMath::Sqrt(2)*Bkgsigma))+1)/2. ) )
-				+ ( d*x[0]*x[0]+e*x[0]+f )
+				+ ( c1*x[0]*x[0]+c2*x[0]+c3 )
 				*( 1 - ( N1*( exp(-t1_1S*t1_1S/2.) + frac*exp(-t2_1S*t2_1S/2.) ) )/
 				( N1*( exp(-t1_1S*t1_1S/2.) + frac*exp(-t2_1S*t2_1S/2.) )
 				+ N4*( TMath::Exp(-x[0]/Bkgp0)*(TMath::Erf((x[0]-Bkgmean)/(TMath::Sqrt(2)*Bkgsigma))+1)/2. ) ) );
@@ -413,10 +412,10 @@ Double_t Totalvn(Double_t* x, Double_t* par)
 	else if(t1_1S < -absAlpha && t2_1S >= -absAlpha)
 	{
 //{{{
-		return c*( N1*( a/TMath::Power(b - t1_1S, n) + frac*exp(-t2_1S*t2_1S/2.) ) )/
+		return c0*( N1*( a/TMath::Power(b - t1_1S, n) + frac*exp(-t2_1S*t2_1S/2.) ) )/
 				( N1*( a/TMath::Power(b - t1_1S, n) + frac*exp(-t2_1S*t2_1S/2.) )
 				+ N4*( TMath::Exp(-x[0]/Bkgp0)*(TMath::Erf((x[0]-Bkgmean)/(TMath::Sqrt(2)*Bkgsigma))+1)/2. ) )
-				+ ( d*x[0]*x[0]+e*x[0]+f )
+				+ ( c1*x[0]*x[0]+c2*x[0]+c3 )
 				*( 1 - ( N1*( a/TMath::Power(b - t1_1S, n) + frac*exp(-t2_1S*t2_1S/2.) ) )/
 				( N1*( a/TMath::Power(b - t1_1S, n) + frac*exp(-t2_1S*t2_1S/2.) )
 				+ N4*( TMath::Exp(-x[0]/Bkgp0)*(TMath::Erf((x[0]-Bkgmean)/(TMath::Sqrt(2)*Bkgsigma))+1)/2. ) ) );
@@ -425,10 +424,10 @@ Double_t Totalvn(Double_t* x, Double_t* par)
 	else
 	{
 //{{{
-		return c*( N1*( a/TMath::Power(b - t1_1S, n) + frac*a/TMath::Power(b - t2_1S, n) ) )/
+		return c0*( N1*( a/TMath::Power(b - t1_1S, n) + frac*a/TMath::Power(b - t2_1S, n) ) )/
 				( N1*( a/TMath::Power(b - t1_1S, n) + frac*a/TMath::Power(b - t2_1S, n) )
 				+ N4*( TMath::Exp(-x[0]/Bkgp0)*(TMath::Erf((x[0]-Bkgmean)/(TMath::Sqrt(2)*Bkgsigma))+1)/2. ) )
-				+ ( d*x[0]*x[0]+e*x[0]+f )
+				+ ( c1*x[0]*x[0]+c2*x[0]+c3 )
 				*( 1 - ( N1*( a/TMath::Power(b - t1_1S, n) + frac*a/TMath::Power(b - t2_1S, n) ) )/
 				( N1*( a/TMath::Power(b - t1_1S, n) + frac*a/TMath::Power(b - t2_1S, n) )
 				+ N4*( TMath::Exp(-x[0]/Bkgp0)*(TMath::Erf((x[0]-Bkgmean)/(TMath::Sqrt(2)*Bkgsigma))+1)/2. ) ) );
@@ -436,7 +435,8 @@ Double_t Totalvn(Double_t* x, Double_t* par)
 	}
 }
 //}}}
-*/
+
+/*
 //totalvn pol3{{{
 Double_t Totalvn(Double_t* x, Double_t* par)
 {
@@ -525,7 +525,7 @@ Double_t Totalvn(Double_t* x, Double_t* par)
 	}
 }
 //}}}
-
+*/
 //}}}
 
 void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, const Double_t rapMin = -2.4, const Double_t rapMax = 2.4, const Double_t TrkptMin = 0, const Double_t TrkptMax = 1, TString version = "v13")
@@ -599,24 +599,33 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 		Double_t var18, var19, var20, var21, var22, var23, var24, var25;
 		Double_t var26, var27, var28;
 
-		ifstream in;
-		in.open(Form("SkimmedFiles/Parameter/Result_parameters_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)(10*ptBinsArr[ipt]), (int)(10*ptBinsArr[ipt+1]), (int)(10*rapMin), (int)(10*rapMax), version.Data()));
-		if(in.is_open())
+		ifstream in1;
+		in1.open(Form("SkimmedFiles/Parameter/Result_parameters_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)(10*ptBinsArr[ipt]), (int)(10*ptBinsArr[ipt+1]), (int)(10*rapMin), (int)(10*rapMax), version.Data()));
+		if(in1.is_open())
 		{
-			in >> char1 >> char2 >> char3 >> char4 >> char5 >> char6 >> 
+			in1 >> char1 >> char2 >> char3 >> char4 >> char5 >> char6 >> 
 					char7 >> char8 >> char9 >> char10 >> char11 >> char12; 
-			in >> var1 >> var2 >> var3 >> var4 >> var5 >> var6 >> 
+			in1 >> var1 >> var2 >> var3 >> var4 >> var5 >> var6 >> 
 					var7 >> var8 >> var9 >> var10 >> var11 >> var12;
-			in >> char13 >> char14 >> char15 >> char16 >> char17 >> 
+			in1 >> char13 >> char14 >> char15 >> char16 >> char17 >> 
 					char18 >> char19 >> char20;
-			in >> var13 >> var14 >> var15 >> var16 >> var17 >> var18 >> 
+			in1 >> var13 >> var14 >> var15 >> var16 >> var17 >> var18 >> 
 					var19 >> var20;
-			in >> char21 >> char22 >> char23 >> char24 >> char25 >> char26 >>
+			in1 >> char21 >> char22 >> char23 >> char24 >> char25 >> char26 >>
 					char27 >> char28;
-			in >> var21 >> var22 >> var23 >> var24 >> var25 >> var26 >>
+			in1 >> var21 >> var22 >> var23 >> var24 >> var25 >> var26 >>
 					var27 >> var28;
 		}
-		in.close();
+		in1.close();
+
+		Double_t bpar1, bpar2, bpar3;
+		ifstream in2;
+		in2.open(Form("SkimmedFiles/Parameter/v2_bkg_par_mult_%d-%d_pt_%d-%d_rap_%d-%d_%s.txt", (int)multMin, (int)multMax, (int)(10*ptBinsArr[ipt]), (int)(10*ptBinsArr[ipt+1]), (int)(10*rapMin), (int)(10*rapMax), version.Data()));
+		if(in2.is_open())
+		{
+			in2 >> bpar1 >> bpar2 >> bpar3;
+		}
+		in2.close();
 //}}}
 
 //Get vn distribution{{{
@@ -687,8 +696,8 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 
 		TF1* fyield_simul = new TF1(Form("fyield_simul_%d", ipt), TotalYield, 8, 14, 13);
 		//TF1* fvn_simul = new TF1(Form("fvn_simul_%d", ipt), Totalvn, 8, 14, 16);//pol1
-		TF1* fvn_simul = new TF1(Form("fvn_simul_%d", ipt), Totalvn, 8, 14, 18);//exp*erf or pol3
-		//TF1* fvn_simul = new TF1(Form("fvn_simul_%d", ipt), Totalvn, 8, 14, 17);//pol2
+		TF1* fvn_simul = new TF1(Form("fvn_simul_%d", ipt), Totalvn, 8, 14, 17);//pol2
+		//TF1* fvn_simul = new TF1(Form("fvn_simul_%d", ipt), Totalvn, 8, 14, 18);//pol3 or exp*erf
 
 //combine functions{{{
 		fyield_simul->SetLineColor(2);
@@ -732,7 +741,7 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 		//par0[7] = linear b
 		//par0[8] = linear a
 
-		const Int_t Npar = 18;
+		const Int_t Npar = 17;
 		Double_t par0[Npar];
 /*
 		par0[0] = var21/var25;
@@ -754,10 +763,10 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 		par0[11] = var19;
 		par0[12] = var20;
 		par0[13] = 0.01;
-		par0[14] = 0.10;
-		par0[15] = 0.1;
-		par0[16] = 0.1;
-		par0[17] = 0.1;
+		par0[14] = bpar1;
+		par0[15] = bpar2;
+		par0[16] = bpar3;
+		//par0[17] = 0.1;
 /*
 		par0[15] = 8.;
 		par0[16] = 1.;
@@ -775,9 +784,12 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 		fitter.Config().ParSettings(7).Fix();
 		fitter.Config().ParSettings(8).Fix();
 		fitter.Config().ParSettings(9).Fix();
-		fitter.Config().ParSettings(10).SetLimits(0, 20);
-		fitter.Config().ParSettings(11).SetLimits(0, 40);
-		fitter.Config().ParSettings(12).SetLimits(0, 100);
+		fitter.Config().ParSettings(10).Fix();
+		fitter.Config().ParSettings(11).Fix();
+		fitter.Config().ParSettings(12).Fix();
+		//fitter.Config().ParSettings(10).SetLimits(0, 20);
+		//fitter.Config().ParSettings(11).SetLimits(0, 40);
+		//fitter.Config().ParSettings(12).SetLimits(0, 100);
 		fitter.Config().MinimizerOptions().SetPrintLevel(0);
 		fitter.Config().SetMinimizer("Minuit2","Migrad");
 
@@ -789,11 +801,13 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 		fyield_simul->SetRange(massrange().first, massrange().second);
 		fyield_simul->SetLineColor(kRed);
 		hyield->GetListOfFunctions()->Add(fyield_simul);
-		TF1* fyield_bkg = new TF1(Form("fyield_bkg_%d", ipt), "[0]*( TMath::Exp(-x/[3])*(TMath::Erf((x-[1])/(TMath::Sqrt(2)*[2]))+1)/2. )", 8, 14);
+
+		TF1* fyield_bkg = new TF1(Form("fyield_bkg_%d", ipt), "[0]*( TMath::Exp(-x/[3])*(TMath::Erf((x-[1])/(TMath::Sqrt(2)*[2]))+1)/2. )", 8, 14);//Err*exp
 		fyield_bkg->FixParameter(0, fyield_simul->GetParameter(3));
 		fyield_bkg->FixParameter(1, fyield_simul->GetParameter(10));
 		fyield_bkg->FixParameter(2, fyield_simul->GetParameter(11));
 		fyield_bkg->FixParameter(3, fyield_simul->GetParameter(12));
+
 		fyield_bkg->SetLineColor(kMagenta);
 		fyield_bkg->SetLineWidth(1);
 		hyield->GetListOfFunctions()->Add(fyield_bkg);
@@ -807,6 +821,22 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 		fvn_bkg->FixParameter(0, fvn_simul->GetParameter(14));
 		fvn_bkg->FixParameter(1, fvn_simul->GetParameter(15));
 */
+
+		//pol2
+		TF1* fvn_bkg = new TF1(Form("fvn_bkg_%d", ipt), "[0]*x*x+[1]*x+[2]", 8, 14);
+		fvn_bkg->FixParameter(0, fvn_simul->GetParameter(14));
+		fvn_bkg->FixParameter(1, fvn_simul->GetParameter(15));
+		fvn_bkg->FixParameter(2, fvn_simul->GetParameter(16));
+cout << "p1: " << fvn_bkg->GetParameter(0) << ", p2: " << fvn_bkg->GetParameter(1) << ", p3: " << fvn_bkg->GetParameter(2) << endl;
+
+/*
+		//pol3
+		TF1* fvn_bkg = new TF1(Form("fvn_bkg_%d", ipt), "[0]*x*x*x+[1]*x*x+[2]*x+[3]", 8, 14);
+		fvn_bkg->FixParameter(0, fvn_simul->GetParameter(14));
+		fvn_bkg->FixParameter(1, fvn_simul->GetParameter(15));
+		fvn_bkg->FixParameter(2, fvn_simul->GetParameter(16));
+		fvn_bkg->FixParameter(3, fvn_simul->GetParameter(17));
+*/
 /*
 		//exp*erf
 		TF1* fvn_bkg = new TF1(Form("fvn_bkg_%d", ipt), "[0]*( TMath::Exp(-x/[3])*(TMath::Erf((x-[1])/(TMath::Sqrt(2)*[2]))+1)/2. )", 8, 14);
@@ -815,20 +845,6 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 		fvn_bkg->FixParameter(2, fvn_simul->GetParameter(16));
 		fvn_bkg->FixParameter(3, fvn_simul->GetParameter(17));
 */
-/*
-		//pol2
-		TF1* fvn_bkg = new TF1(Form("fvn_bkg_%d", ipt), "[0]*x*x+[1]*x+[2]", 8, 14);
-		fvn_bkg->FixParameter(0, fvn_simul->GetParameter(14));
-		fvn_bkg->FixParameter(1, fvn_simul->GetParameter(15));
-		fvn_bkg->FixParameter(2, fvn_simul->GetParameter(16));
-*/
-		//pol3
-		TF1* fvn_bkg = new TF1(Form("fvn_bkg_%d", ipt), "[0]*x*x*x+[1]*x*x+[2]*x+[3]", 8, 14);
-		fvn_bkg->FixParameter(0, fvn_simul->GetParameter(14));
-		fvn_bkg->FixParameter(1, fvn_simul->GetParameter(15));
-		fvn_bkg->FixParameter(2, fvn_simul->GetParameter(16));
-		fvn_bkg->FixParameter(3, fvn_simul->GetParameter(17));
-
 		fvn_bkg->SetLineColor(kMagenta);
 		fvn_bkg->SetLineWidth(1);
 
@@ -906,9 +922,9 @@ void SimultaneousFit_No23(const Int_t multMin = 0, const Int_t multMax = 300, co
 	{
 		cout << "pt" << ipt << ", a: " << a[ipt] << ", b: " << b[ipt] << endl;
 		//c1[ipt]->SaveAs(Form("CorrDist/V2Dist/Combine_fit_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_No23_pol1_%s.pdf", (int)multMin, (int)multMax, (int)(ptBinsArr[ipt]*10), (int)(ptBinsArr[ipt+1]*10), (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
+		c1[ipt]->SaveAs(Form("CorrDist/V2Dist/Combine_fit_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_No23_pol2_%s.pdf", (int)multMin, (int)multMax, (int)(ptBinsArr[ipt]*10), (int)(ptBinsArr[ipt+1]*10), (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
+		//c1[ipt]->SaveAs(Form("CorrDist/V2Dist/Combine_fit_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_No23_pol3_%s.pdf", (int)multMin, (int)multMax, (int)(ptBinsArr[ipt]*10), (int)(ptBinsArr[ipt+1]*10), (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
 		//c1[ipt]->SaveAs(Form("CorrDist/V2Dist/Combine_fit_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_No23_Erf_%s.pdf", (int)multMin, (int)multMax, (int)(ptBinsArr[ipt]*10), (int)(ptBinsArr[ipt+1]*10), (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
-		//c1[ipt]->SaveAs(Form("CorrDist/V2Dist/Combine_fit_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_No23_pol2_%s.pdf", (int)multMin, (int)multMax, (int)(ptBinsArr[ipt]*10), (int)(ptBinsArr[ipt+1]*10), (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
-		c1[ipt]->SaveAs(Form("CorrDist/V2Dist/Combine_fit_Mult_%d-%d_pt_%d-%d_rap_%d-%d_Trkpt_%d-%d_No23_pol3_%s.pdf", (int)multMin, (int)multMax, (int)(ptBinsArr[ipt]*10), (int)(ptBinsArr[ipt+1]*10), (int)(10*rapMin), (int)(10*rapMax), (int)TrkptMin, (int)TrkptMax, version.Data()));
 	}
 
 	TGraphErrors* v2plot = new TGraphErrors(npt, pt, v2, 0, v2e);
